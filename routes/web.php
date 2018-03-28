@@ -11,4 +11,5 @@ Route::group(
     ],
     function(){
     Route::get('/','DashboardController@dashboard');
+    Route::resource('posts','PostController');
 });

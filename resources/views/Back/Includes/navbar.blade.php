@@ -122,8 +122,8 @@
                         <span>Posts</span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href=""><i class="fa fa-circle-o"></i> All Posts</a></li>
-                        <li><a href=""><i class="fa fa-circle-o"></i> New Post</a></li>
+                        <li><a href="{{route('posts.index')}}"><i class="fa fa-circle-o"></i> All Posts</a></li>
+                        <li><a href="{{route('posts.create')}}"><i class="fa fa-circle-o"></i> New Post</a></li>
                         <li><a href=""><i class="fa fa-circle-o"></i> Category</a></li>
                         <li><a href=""><i class="fa fa-circle-o"></i> Tag</a></li>
                     </ul>
