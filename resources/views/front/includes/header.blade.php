@@ -22,6 +22,8 @@
 	<link href="{{asset('front/css/styles.css')}}" rel="stylesheet">
 
 	<link href="{{asset('front/css/responsive.css')}}" rel="stylesheet">
+	<!--FOR LOGIN-->
+	<link href="{{asset('front/css/login-style.css')}}" rel="stylesheet">
 
 
 
@@ -36,11 +38,12 @@
 			<div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="fas fa-align-right"></i></div>
 
 			<ul class="main-menu visible-on-click" id="main-menu">
-				<li><a href="#">Home</a></li>
-				<li><a href="#">Categories</a></li>
-				<li><a href="#">Features</a></li>
-				<li><a href="#">Fashion</a></li>
-				<li><a href="#">Login</a></li>
+				<li><a href="{{URL::to('/')}}">Home</a></li>
+				<li><a href="#">Categories1</a></li>
+				<li><a href="#">Categories2</a></li>
+				<li><a href="#">Categories3</a></li>
+				<li><a href="#">Categories4</a></li>
+				<li><a href="{{URL::to('login')}}">Login</a></li>
 			</ul><!-- main-menu -->
 
 			

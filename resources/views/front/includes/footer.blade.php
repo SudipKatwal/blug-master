@@ -66,6 +66,8 @@
 
 	<script src="{{asset('front/js/scripts.js')}}"></script>
 
-</body>
+	<!--for login -->
+	<script src="{{asset('front/js/login-js.js')}}"></script>
+
 </html>
 @endsection
