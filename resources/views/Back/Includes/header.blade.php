@@ -21,6 +21,12 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{url('css/admin/_all-skins.min.css')}}">
 
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="{{URL::to('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+    {{--<link rel="stylesheet" href="{{URL::to('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">--}}
+
+    <!-- jQuery 3 -->
+    <script src="{{URL::to('js/admin/jquery.min.js')}}"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
