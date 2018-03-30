@@ -202,7 +202,7 @@
                         <li><a href="{{route('posts.index')}}"></i> <i class="fa fa-eye" class="fa fa-circle-o"></i>View Posts</a></li>
                     </ul>
                 </li>
-<<<<<<< HEAD
+
                  <li>
                     <a href="{{route('category.index')}}"><i class="fa fa-plus"></i><span> Add Category</span></a>
                 </li>
