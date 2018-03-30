@@ -52,6 +52,8 @@ class LoginController extends Controller
         {
             return redirect('/admin');
 
+        }else{
+            return redirect()->back()->with('error','Credential does not match');
         }
     }
     /**
