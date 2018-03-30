@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    public function categories()
+    protected $fillable = ['title','slug','body','thumbnail','words_count','user_id','category_id','main_keywords','lsi_keywords','is_approved'];
+
+
+    public function category()
     {
-        return $this->hasOne(Image::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function likes()
@@ -34,5 +37,9 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function images(){
+        return $this->hasMany(Image::class);
     }
 }

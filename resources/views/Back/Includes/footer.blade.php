@@ -10,8 +10,7 @@
     </div>
     <!-- ./wrapper -->
 
-    <!-- jQuery 3 -->
-    <script src="{{URL::to('js/admin/jquery.min.js')}}"></script>
+
     <!-- Bootstrap 3.3.7 -->
     <script src="{{URL::to('js/admin/bootstrap.min.js')}}"></script>
     <!-- SlimScroll -->
@@ -22,6 +21,20 @@
     <script src="{{URL::to('js/admin/adminlte.min.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{URL::to('js/admin/demo.js')}}"></script>
+    <!-- CK Editor -->
+    <script src="{{URL::to('js/admin/ckeditor/ckeditor.js')}}"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="{{URL::to('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+{{--    <script src="{{URL::to('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>--}}
+    <script>
+        $(function () {
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
+            CKEDITOR.replace('editor1')
+            //bootstrap WYSIHTML5 - text editor
+            $('.textarea').wysihtml5()
+        })
+    </script>
     </body>
     </html>
 @endsection
