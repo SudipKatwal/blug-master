@@ -52,27 +52,68 @@
     </div><!-- conatiner -->
 </header>
 
-<center>
-    @if(session('error'))
-        <div class="alert alert-success">{{session('error')}} </div>
-    @endif
-    @if(session('success'))
-        <div class="alert alert-success">{{session('success')}} </div>
-    @endif
-</center>
-
 <div class="login-page">
-      <div class="form">
-        <form action="{{url('login')}}" method="post" class="login-form">
-          <h2>Blug<strong>Master</strong></h2>&nbsp;
+    <div class="form">
+        <form class="login-form" action="{{route('register')}}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
-          <input type="text" name="email" placeholder="Email"/>
-          <input type="password" name="password" placeholder="password"/>
-          <button>login</button>
-          <p class="message">Not registered? <a href="{{route('register')}}">Create an account</a></p>
+            <input type="text" value="{{ old('name') }}" placeholder="name" name="name"/>
+            @if ($errors->has('name'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('name') }}</strong>
+                </span>
+            @endif
+            <input type="email" value="{{ old('email') }}" placeholder="Your Email" name="email"/>
+            @if ($errors->has('email'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </span>
+            @endif
+            <input type="password" placeholder="Password" name="password"/>
+            @if ($errors->has('password'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </span>
+            @endif
+            <input type="text" value="{{ old('address') }}" placeholder="Address" name="address"/>
+            @if ($errors->has('address'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('address') }}</strong>
+                </span>
+            @endif
+            <input type="text" value="{{ old('phone') }}" placeholder="Phone Number" name="phone"/>
+            @if ($errors->has('phone'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('phone') }}</strong>
+                </span>
+            @endif
+            <input type="text" value="{{ old('interest') }}" placeholder="Interest for eg. Travel, Sport, Gaming" name="interest"/>
+            @if ($errors->has('interest'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('interest') }}</strong>
+                </span>
+            @endif
+            Gender
+            <select name="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">other</option>
+            </select>
+            @if ($errors->has('gender'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('gender') }}</strong>
+                </span>
+            @endif
+            <input type="file" name="profile">
+            @if ($errors->has('profile'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('profile') }}</strong>
+                </span>
+            @endif
+            <button>create</button>
+            <p class="message">Already registered? <a href="{{url('login')}}">Sign In</a></p>
         </form>
-      </div>
     </div>
+</div>
 
 </body>
 <footer>

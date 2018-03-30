@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -15,8 +16,20 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'role_id','name', 'email', 'password','address','phone_no','gender','interest','thumbnails'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(
+            function ($user){
+                $user->verification_token = mt_rand(100000,999999);
+                $user->token_created_at = Carbon::now();
+            }
+        );
+    }
 
     /**
      * The attributes that should be hidden for arrays.
