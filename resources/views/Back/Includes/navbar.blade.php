@@ -117,6 +117,16 @@
                         <li><a href="{{route('tags')}}"><i class="fa fa-circle-o"></i> Tag</a></li>
                     </ul>
                 </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-user-o"></i>
+                        <span>Users</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('users.index')}}"><i class="fa fa-circle-o"></i> All Users</a></li>
+                        <li><a href="{{route('users.create')}}"><i class="fa fa-circle-o"></i> New User</a></li>
+                    </ul>
+                </li>
 
             </ul>
         </section>
