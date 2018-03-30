@@ -6,6 +6,7 @@ use Illuminate\Container\Container;
 
 abstract class Repository implements RepositoryInterface
 {
+
     protected $model;
 
     public function __construct(Container $app)
@@ -14,4 +15,5 @@ abstract class Repository implements RepositoryInterface
     }
 
     abstract function model();
+    
 }
