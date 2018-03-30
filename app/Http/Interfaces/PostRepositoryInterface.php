@@ -6,6 +6,8 @@ interface PostRepositoryInterface extends RepositoryInterface
 {
     public function addNewPost($data);
 
+    public function updatePost($data,$id);
+
     public function posts();
 
     public function singlePost($id);

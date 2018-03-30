@@ -45,13 +45,18 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="col-lg-3 pull-right">
-                                            <a class="btn btn-primary btn-sm" id="permanentDelete" href="{{route('delete.post',$post->id)}}">
+                                            <form action="{{ route('posts.destroy' , $post->id)}}" method="POST">
+                                                <input name="_method" type="hidden" value="DELETE">
+                                                {{ csrf_field() }}
+
+                                                <button id="delete" class="btn btn-danger btn-sm">Delete</button>
                                                 <script>
-                                                    $(document).on('click','#permanentDelete', function () {
-                                                       confirm('Do you want to delete this posts ?')
+                                                    $(document).on('click','#delete',function () {
+                                                        confirm('Do you want to delete this category ?');
                                                     });
                                                 </script>
-                                                Permanently Delete </a>
+
+                                            </form>
                                         </div>
                                         <div class="col-lg-3 pull-right">
                                             <a class="btn btn-primary btn-sm" href="{{route('posts.edit',$post->id)}}">
@@ -63,17 +68,16 @@
                                         </div>
 
                                         <div class="col-lg-2 pull-right">
-                                            <form method="post" action="">
-                                                <input type="hidden" name="_pid" value="{{$post->id}}">
+                                            <form method="post" action="{{route('approve.post',$post->id)}}">
+                                                <input type="hidden" name="id" value="{{$post->id}}">
                                                 {{csrf_field()}}
-                                                @if($post->is_active==0)
+                                                @if($post->is_approved==0)
                                                     <button name="enable" class="btn btn-primary btn-sm">Approve</button>
                                                 @else
                                                     <button name="disable" class="btn btn-danger btn-sm">Approved</button>
                                                 @endif
                                             </form>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

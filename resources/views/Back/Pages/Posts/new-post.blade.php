@@ -103,9 +103,12 @@
 
                                             <select class="input-group-lg form-group form-control" id="parentCategory" name="category">
                                                 <option selected disabled>Select Category</option>
-                                                <option value="1">First</option>
-                                                <option value="1">Second</option>
-                                                <option value="1">Third</option>
+                                                @if(count($categories)>0)
+                                                    @forelse($categories as $key=>$category)
+                                                        <option  value="{{$category->id}}"> {{$category->name}} </option>
+                                                    @empty
+                                                    @endforelse
+                                                @endif
 
                                             </select>
                                             @if ($errors->has('category'))

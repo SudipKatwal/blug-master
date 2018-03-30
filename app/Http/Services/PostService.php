@@ -41,6 +41,39 @@ class PostService extends Service
         return $this->interface->addNewPost($data);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePost($request, $id)
+    {
+        $data = $request->all();
+
+        $data['slug'] = strtolower(preg_replace('/[^A-Za-z0-9-]+/','-',$request->slug));
+
+        $data['words_count'] = str_word_count($data['description']);
+
+
+        if ($request->hasFile('featured_image')){
+            $imagePath = public_path('Images/post-thumbnails/' . $request->old_image);
+            unlink($imagePath);
+            $thumbnail = $this->saveThumbnails($request->file('featured_image'));
+            $data['thumbnails'] = $thumbnail;
+        }else{
+            $data['thumbnails'] = $request->old_image;
+        }
+        if ($request->hasFile('images')){
+            foreach ($request->file('images') as $image){
+                $store = $this->saveImages($image);
+                $data['image'][] = $store;
+            }
+        }
+        return $this->interface->updatePost($data, $id);
+    }
+
     /*
      *Methods for displaying store posts.
      */
@@ -126,8 +159,8 @@ class PostService extends Service
     protected function resizeImage($file, $width, $height)
     {
         return Image::make($file)->resize(
+            $width,
             null,
-            $height,
             function ($constraint) {
                 $constraint->aspectRatio();
             }

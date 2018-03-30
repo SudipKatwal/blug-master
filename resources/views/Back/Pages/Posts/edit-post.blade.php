@@ -21,6 +21,7 @@
 
             <div class="row">
                 <form action="{{route('posts.update',$detail->id)}}" method="post" enctype="multipart/form-data">
+                    @method('PUT')
                     {{csrf_field()}}
                     <div class="col-md-12">
                         <div class="col-md-8">
@@ -91,9 +92,9 @@
                         <div class="col-md-4">
                             <div class="col-lg-12">
                                 <div class="panel panel-default">
-                                    <div class="panel-heading">Publish Package</div>
-                                    <div class="panel-body">After publishing package. The package will be accessible for public.</div>
-                                    <div class="panel-footer"><input class="btn btn-primary" type="submit" value="Publish"></div>
+                                    <div class="panel-heading">Update Package</div>
+                                    <div class="panel-body">After updating package. The package will be change for public.</div>
+                                    <div class="panel-footer"><input class="btn btn-primary" type="submit" value="Update"></div>
                                 </div>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">Category</div>
@@ -103,9 +104,15 @@
 
                                             <select class="input-group-lg form-group form-control" id="parentCategory" name="category">
                                                 <option selected disabled>Select Category</option>
-                                                <option value="1">First</option>
-                                                <option value="1">Second</option>
-                                                <option value="1">Third</option>
+                                                @if(count($categories)>0)
+                                                    @forelse($categories as $key=>$category)
+                                                    <option value="{{$category->id}}"
+                                                        @if($detail->category->id==$category->id)
+                                                            {{'selected'}}
+                                                        @endif > {{$category->name}} </option>
+                                                    @empty
+                                                        @endforelse
+                                                @endif
 
                                             </select>
                                             @if ($errors->has('category'))
@@ -121,6 +128,7 @@
                                     <div class="panel-heading">Featured Image</div>
                                     <div class="panel-body {{ $errors->has('featured_image') ? ' has-error' : '' }}">
                                         <input type="file" value="{{ old('featured_image')}}" class="btn btn-default" name="featured_image">
+                                        <input type="hidden" value="{{$detail->thumbnail}}" name="old_image">
                                         <img src="{{URL::to('Images/post-thumbnails/'.$detail->thumbnail)}}" class="img img-responsive">
                                         @if ($errors->has('featured_image'))
                                             <span class="help-block">
@@ -130,7 +138,7 @@
                                     </div>
                                 </div>
                                 <div class="panel panel-default">
-                                    <div class="panel-heading">Other Images</div>
+                                    <div class="panel-heading">Add more images</div>
                                     <div class="panel-body">
                                         <div class="controls">
                                             <div class="entry input-group">

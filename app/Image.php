@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name','post_id'];
     public function post()
     {
         return $this->belongsTo(Post::class);

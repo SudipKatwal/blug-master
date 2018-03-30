@@ -29,13 +29,13 @@
                         <div class="panel-body">
                             {{--@include('Admin.Includes.validation')--}}
 
-                            <form action="{{route('category.add')}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('category.store')}}" method="post" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <hr class="colorgraph">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-11 col-md-11">
                                         <div class="form-group">
-                                            <input type="text" name="categoryName" id="categoryName" class="form-control" placeholder="Category Name" tabindex="1">
+                                            <input type="text" name="name" class="form-control" placeholder="Category Name" tabindex="1">
                                         </div>
                                     </div>
                                 </div>
@@ -73,50 +73,58 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
-                                {{--<table class="table">--}}
-                                    {{--<thead>--}}
-                                    {{--<tr>--}}
-                                        {{--<th>S.No</th>--}}
-                                        {{--<th>Name</th>--}}
-                                        {{--<th>Status</th>--}}
-                                        {{--<th>Parent</th>--}}
-                                        {{--<th>Action</th>--}}
-                                    {{--</tr>--}}
-                                    {{--</thead>--}}
-                                    {{--<tbody>--}}
-                                    {{--@if(count($allCategories)>0)--}}
-                                        {{--@forelse($allCategories as $key=>$category)--}}
-                                            {{--<tbody>--}}
-                                            {{--<tr>--}}
-                                                {{--<td>{{++$key}}</td>--}}
-                                                {{--<td>{{$category->category_name}}</td>--}}
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if(count($categories)>0)
+                                        @forelse($categories as $key=>$category)
+                                            <tbody>
+                                            <tr>
+                                                <td>{{++$key}}</td>
+                                                <td>{{$category->name}}</td>
 
-                                                {{--<td>--}}
-                                                    {{--<form action="{{route('category-status-update')}}" method="post">--}}
-                                                        {{--{{csrf_field()}}--}}
-                                                        {{--<input type="hidden" name="_cid" value="{{$category->category_id}}">--}}
-                                                        {{--@if($category->status==0)--}}
-                                                            {{--<button class="btn btn-primary btn-sm" name="enable">Enable</button>--}}
-                                                        {{--@else--}}
-                                                            {{--<button class="btn btn-danger btn-sm" name="disable">Disable</button>--}}
-                                                        {{--@endif--}}
-                                                    {{--</form>--}}
-                                                {{--</td>--}}
-                                                {{--<td> {{$category->name}}</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<a class="btn btn-danger btn-sm" href="{{URL('admin/editor/delete-category')}}/{{$category->category_id}}">Delete</a>--}}
-                                                {{--</td>--}}
-                                            {{--</tr>--}}
-                                            {{--</tbody>--}}
-                                        {{--@empty--}}
-                                        {{--@endforelse--}}
-                                    {{--@else--}}
-                                        {{--<tr>--}}
-                                            {{--<td colspan="6">Data not found.</td>--}}
-                                        {{--</tr>--}}
-                                        {{--@endif--}}
-                                        {{--</tbody>--}}
-                                {{--</table>--}}
+                                                <td>
+                                                    <form action="{{route('category.status',$category->id)}}" method="post">
+                                                        {{csrf_field()}}
+                                                        <input type="hidden" name="id" value="{{$category->id}}">
+                                                        @if($category->is_active==0)
+                                                            <button class="btn btn-primary btn-sm" name="enable">Enable</button>
+                                                        @else
+                                                            <button class="btn btn-danger btn-sm" name="disable">Disable</button>
+                                                        @endif
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <form action="{{ route('category.destroy' , $category->id)}}" method="POST">
+                                                        <input name="_method" type="hidden" value="DELETE">
+                                                        {{ csrf_field() }}
+
+                                                        <button id="delete" class="btn btn-danger btn-sm">Delete</button>
+                                                        <script>
+                                                            $(document).on('click','#delete',function () {
+                                                               confirm('Do you want to delete this category ?');
+                                                            });
+                                                        </script>
+
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        @empty
+                                        @endforelse
+                                    @else
+                                        <tr>
+                                            <td colspan="6">Data not found.</td>
+                                        </tr>
+                                    @endif
+                                </table>
                             </div>
                             <!-- /.table-responsive -->
                         </div>

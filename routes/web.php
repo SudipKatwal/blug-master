@@ -19,14 +19,15 @@ Route::group(
     function(){
     Route::get('/','DashboardController@dashboard');
     Route::resource('posts','PostController');
-    Route::get('post/{id}/delete','PostController@postDelete')->name('delete.post');
+    Route::post('posts/{id}/approve-post','PostController@postApprove')->name('approve.post');
 
-    Route::get('category','PostController@category')->name('category');
-    Route::post('category','PostController@categoryAdd')->name('category.add');
+    Route::resource('category','CategoryController');
+    Route::post('category/{id}/change-status','CategoryController@updateStatus')->name('category.status');
+
     Route::get('tags','PostController@tag')->name('tags');
     Route::post('tags','PostController@tagAdd')->name('tags.add');
 
     Route::post('logout','Auth\LoginController@logout')->name('logout');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');

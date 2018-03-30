@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\PostRequest;
 use App\Http\Services\PostService;
+use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +43,8 @@ class PostController extends Controller
     public function create()
     {
         $this->data('title',$this->title('New Post'));
+        $this->data('categories',Category::all());
+
         return view(
             'Back.Pages.Posts.new-post',
             $this->data
@@ -92,6 +96,7 @@ class PostController extends Controller
 
         $detail = $this->postServices->singlePost($id);
         $this->data('title',$detail->title.' edit');
+        $this->data('categories',Category::all());
         return view(
             'Back.Pages.Posts.edit-post',
             $this->data,
@@ -106,9 +111,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
-        //
+        if($this->postServices->updatePost($request,$id)){
+            return redirect()->route('posts.index')->with('success','Post has been updated');
+        }
     }
 
     /**
@@ -119,7 +126,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if($this->postServices->deletePost($id)){
+            return redirect()->route('posts.index')->with('success','Post has been deleted.');
+        }
     }
 
     /**
@@ -128,37 +137,24 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function postDelete($id)
+    public function postApprove(Request $request, $id)
     {
-        if($this->postServices->deletePost($id)){
-            return redirect()->route('posts.index')->with('success','Post has been deleted.');
+        if (isset($request['enable'])) {
+            $data['is_approved'] = 1;
+            $message = "User was Enabled";
+        }
+        if (isset($request['disable'])) {
+            $data['is_approved'] = 0;
+            $message = "User was Disabled";
+        }
+        $post = Post::find($id);
+        if ($post::where('id',$id)->update($data)) {
+            return redirect()->route('posts.index')->with('success', $message);
+        } else {
+            return redirect()->back()->with('success', $message);
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function category()
-    {
-        $this->data('title',$this->title('Category'));
-        return view(
-            'Back.Pages.Posts.category',
-            $this->data
-        );
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function categoryAdd(Request $request)
-    {
-        //
-    }
     /**
      * Show the form for creating a new resource.
      *
