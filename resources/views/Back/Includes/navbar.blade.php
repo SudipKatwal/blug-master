@@ -202,6 +202,7 @@
                         <li><a href="{{route('posts.index')}}"></i> <i class="fa fa-eye" class="fa fa-circle-o"></i>View Posts</a></li>
                     </ul>
                 </li>
+<<<<<<< HEAD
                  <li>
                     <a href="{{route('category.index')}}"><i class="fa fa-plus"></i><span> Add Category</span></a>
                 </li>
@@ -228,6 +229,18 @@
                 <li>
                     <a href=""><i class="fa fa-sliders"></i><span> Post Logs</span></a>
                 </li>
+=======
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-user-o"></i>
+                        <span>Users</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('users.index')}}"><i class="fa fa-circle-o"></i> All Users</a></li>
+                        <li><a href="{{route('users.create')}}"><i class="fa fa-circle-o"></i> New User</a></li>
+                    </ul>
+                </li>
+>>>>>>> 73ed093066b2b6da1f57e573fd177fb05f6a3993
 
             </ul>
             

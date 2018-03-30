@@ -13,7 +13,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $this->data('title',$this->title('All Users'));
+//        $posts = $this->postServices->posts();
+        return view(
+            'Back.Pages.Users.users',
+            $this->data
+//            compact('posts')
+        );
     }
 
     /**
@@ -23,7 +29,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $this->data('title',$this->title('Add new user'));
+        return view(
+            'Back.Pages.Users.new-user',
+            $this->data
+        );
     }
 
     /**
