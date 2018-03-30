@@ -33,13 +33,15 @@ This project is based on managing different types of user for blug.
 
     Using the route cache will drastically decrease the amount of time it takes to register all of your application's routes. 
 
-9. 'composer require intervention/image'
+9. `composer require intervention/image`
+
 	This command is used to install Intervention Image is quickly and easily with Composer.
 
 ### Login Information
 
-Email : 'admin@admin.com'
-Password : 'secret'
+Email : admin@admin.com
+
+Password : `secret`
 
 ### Please Note
 
