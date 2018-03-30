@@ -177,6 +177,7 @@
                 <div class="pull-left image">
                     <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
                 </div>
+
                 <div class="pull-left info">
                     <p>{{Auth::user()->name}}</p>
                    {{--  <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
@@ -229,8 +230,8 @@
                 <li>
                     <a href=""><i class="fa fa-sliders"></i><span> Post Logs</span></a>
                 </li>
-=======
-                <li class="treeview">
+
+                {{-- <li class="treeview">
                     <a href="#">
                         <i class="fa fa-user-o"></i>
                         <span>Users</span>
@@ -239,8 +240,19 @@
                         <li><a href="{{route('users.index')}}"><i class="fa fa-circle-o"></i> All Users</a></li>
                         <li><a href="{{route('users.create')}}"><i class="fa fa-circle-o"></i> New User</a></li>
                     </ul>
+                </li> --}}
+                 <li>
+                    <a href=""><i class="fa fa-group"></i><span> Admins</span></a>
                 </li>
->>>>>>> 73ed093066b2b6da1f57e573fd177fb05f6a3993
+                <li>
+                    <a href=""><i class="fa fa-history"></i><span> Payment History</span></a>
+                </li>
+                <li>
+                    <a href=""><i class="fa fa-wrench"></i><span> Settings</span></a>
+                </li>
+                <li>
+                    <a href=""><i class="fa fa-sign-out"></i><span> Log Out</span></a>
+                </li>
 
             </ul>
             
