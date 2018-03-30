@@ -3,9 +3,9 @@
 Route::get('/', function () {
     return view('front.pages.index');
 });
-Route::get('login', function () {
-    return view('front.pages.login');
-});
+Route::get('login','auth\LoginController@loginForm');
+Route::post('login','auth\LoginController@login');
+
 Route::get('single', function () {
     return view('front.pages.single');
 });
@@ -25,8 +25,8 @@ Route::group(
     Route::post('category','PostController@categoryAdd')->name('category.add');
     Route::get('tags','PostController@tag')->name('tags');
     Route::post('tags','PostController@tagAdd')->name('tags.add');
-});
 
-Auth::routes();
+    Route::post('logout','Auth\LoginController@logout')->name('logout');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
