@@ -24,7 +24,7 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{URL::to('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
     {{--<link rel="stylesheet" href="{{URL::to('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">--}}
-
+<script src="//cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
     <!-- jQuery 3 -->
     <script src="{{URL::to('js/admin/jquery.min.js')}}"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

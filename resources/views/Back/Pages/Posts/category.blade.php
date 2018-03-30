@@ -107,6 +107,7 @@
                                                         {{ csrf_field() }}
 
                                                         <button id="delete" class="btn btn-danger btn-sm">Delete</button>
+                                                          <a href="" class="btn btn-primary btn-sm">Edit</a>
                                                         <script>
                                                             $(document).on('click','#delete',function () {
                                                                confirm('Do you want to delete this category ?');

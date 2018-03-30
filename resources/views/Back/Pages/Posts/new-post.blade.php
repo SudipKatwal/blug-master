@@ -9,11 +9,11 @@
             <h1>
                 New Post
             </h1>
-            <ol class="breadcrumb">
+            {{-- <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li class="active">Posts</li>
                 <li class="active">New-Post</li>
-            </ol>
+            </ol> --}}
         </section>
 
         <!-- Main content -->
@@ -50,15 +50,18 @@
                                             </div>
                                         </div>
                                         {{--CKEDITOR--}}
-                                        <div class="box-body pad {{ $errors->has('description') ? ' has-error' : '' }}">
+                                        {{-- <div class="box-body pad {{ $errors->has('description') ? ' has-error' : '' }}">
                                             <textarea id="editor1"  name="description" rows="10" cols="80" style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ old('description') }}</textarea>
                                             @if ($errors->has('description'))
                                                 <span class="help-block">
                                                         <strong>{{ $errors->first('description') }}</strong>
                                                     </span>
                                             @endif
-                                        </div>
-
+                                        </div> --}}
+                                        <textarea name="editor1"></textarea>
+        <script>
+            CKEDITOR.replace( 'editor1' );
+        </script>
                                         <div class="box-body pad">
                                             <div class="form-group {{ $errors->has('main_keyword') ? ' has-error' : '' }}">
                                                 <label for="packagetitle">Main Keyword</label>

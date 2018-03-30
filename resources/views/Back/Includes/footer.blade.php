@@ -1,7 +1,7 @@
 @section('footer')
 
     <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+        <strong>Copyright &copy; 2018 <a href=""> Blug<strong>Master</strong></a>.</strong> All rights
         reserved.
     </footer>
     <!-- Add the sidebar's background. This div must be placed

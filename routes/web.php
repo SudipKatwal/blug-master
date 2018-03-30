@@ -13,6 +13,7 @@ Route::get('single', function () {
 });
 
 
+
 Route::group(
     [
         'prefix'=>'admin',
