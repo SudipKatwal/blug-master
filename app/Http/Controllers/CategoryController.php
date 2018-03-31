@@ -49,7 +49,7 @@ class CategoryController extends Controller
         $slug = strtolower(preg_replace('/[^A-Za-z0-9-]+/','-',$request->name));
 
         if(Category::create(['name'=>$name,'slug'=>$slug])){
-            return redirect()->route('category.index');
+            return redirect()->route('category.index')->with('New category has been added.');
         }
     }
 

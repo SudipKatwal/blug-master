@@ -15,7 +15,14 @@
                 <li class="active">Category</li>
             </ol>
         </section>
-
+        <center>
+            @if(session('error'))
+                <div class="alert alert-success">{{session('error')}} </div>
+            @endif
+            @if(session('success'))
+                <div class="alert alert-success">{{session('success')}} </div>
+            @endif
+        </center>
         <!-- Main content -->
         <section class="content">
 
@@ -27,7 +34,6 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            {{--@include('Admin.Includes.validation')--}}
 
                             <form action="{{route('category.store')}}" method="post" enctype="multipart/form-data">
                                 {{csrf_field()}}

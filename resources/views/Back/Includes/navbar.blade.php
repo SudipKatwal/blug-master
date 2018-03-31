@@ -211,7 +211,7 @@
                     <a href="{{route('tags')}}"><i class="fa fa-plus"></i><span> Add Tag</span></a>
                 </li>
                  <li>
-                    <a href=""><i class="fa fa-plus"></i><span> Add Page</span></a>
+                    <a href="{{route('pages.index')}}"><i class="fa fa-plus"></i><span> Add Page</span></a>
                 </li>
                 <li class="treeview">
                     <a href="#">
@@ -223,24 +223,14 @@
                     </a>
                     <ul class="treeview-menu">
                         
-                        <li><a href=""> <i class="fa fa-plus" class="fa fa-circle-o"></i> Add Users</a></li>
-                        <li><a href=""> <i class="fa fa-eye" class="fa fa-circle-o"></i>View Users</a></li>
+                        <li><a href="{{route('users.create')}}"> <i class="fa fa-plus" class="fa fa-circle-o"></i> Add Users</a></li>
+                        <li><a href="{{route('users.index')}}"> <i class="fa fa-eye" class="fa fa-circle-o"></i>View Users</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href=""><i class="fa fa-sliders"></i><span> Post Logs</span></a>
                 </li>
 
-                {{-- <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-user-o"></i>
-                        <span>Users</span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{route('users.index')}}"><i class="fa fa-circle-o"></i> All Users</a></li>
-                        <li><a href="{{route('users.create')}}"><i class="fa fa-circle-o"></i> New User</a></li>
-                    </ul>
-                </li> --}}
                  <li>
                     <a href=""><i class="fa fa-group"></i><span> Admins</span></a>
                 </li>

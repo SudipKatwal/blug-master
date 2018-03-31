@@ -25,6 +25,10 @@ Route::group(
     Route::post('posts/{id}/approve-post','PostController@postApprove')->name('approve.post');
 
     Route::resource('users','UserController');
+
+    Route::resource('pages','PageController');
+    Route::post('pages/{id}/change-status','CategoryController@updateStatus')->name('pages.status');
+
     Route::resource('category','CategoryController');
     Route::post('category/{id}/change-status','CategoryController@updateStatus')->name('category.status');
 
