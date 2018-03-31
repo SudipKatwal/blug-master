@@ -224,7 +224,7 @@
                     <ul class="treeview-menu">
                         
                         <li><a href="{{route('users.create')}}"> <i class="fa fa-plus" class="fa fa-circle-o"></i> Add Users</a></li>
-                        <li><a href="{{route('users.index')}}"> <i class="fa fa-eye" class="fa fa-circle-o"></i>View Users</a></li>
+                        <li><a href="{{route('users.index','user=writer')}}"> <i class="fa fa-eye" class="fa fa-circle-o"></i>View Users</a></li>
                     </ul>
                 </li>
                 <li>
@@ -232,7 +232,7 @@
                 </li>
 
                  <li>
-                    <a href=""><i class="fa fa-group"></i><span> Admins</span></a>
+                    <a href="{{route('users.index','user=admin')}}"><i class="fa fa-group"></i><span> Admins</span></a>
                 </li>
                 <li>
                     <a href=""><i class="fa fa-history"></i><span> Payment History</span></a>

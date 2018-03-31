@@ -14,14 +14,22 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->data('title',$this->title('All Users'));
-        $users = User::where(
-            function ($query){
-                $query->where('role_id',3);
-            }
-        )->get();
+        if ($request->user =='admin'){
+            $users = User::where(
+                function ($query){
+                    $query->where('role_id',2);
+                }
+            )->get();
+        } elseif($request->user='writer') {
+            $users = User::where(
+                function ($query) {
+                    $query->where('role_id', 3);
+                }
+            )->get();
+        }
         return view(
             'Back.Pages.Users.users',
             $this->data,
