@@ -47,8 +47,23 @@ class PostRepository extends Repository implements PostRepositoryInterface
         return $post;
     }
 
-    public function posts()
+    public function posts($limit = null, $category = null)
     {
+        if (isset($limit) && isset($category)){
+            return $this->model->whereHas(
+                'category',
+                function ($query) use($category){
+                    $query->where('slug',$category);
+                }
+            )->limit($limit)->get();
+        }
+        if (isset($limit)){
+            return $this->model->where(
+                function ($query){
+                    $query->where('is_active',1);
+                }
+            )->latest()->limit($limit)->get();
+        }
         return $this->model->where(
             function ($query){
                 $query->where('is_active',1);
@@ -56,13 +71,22 @@ class PostRepository extends Repository implements PostRepositoryInterface
         )->latest()->get();
     }
 
-    public function singlePost($id)
+    public function singlePost($id = null, $slug = null)
     {
         return $this->model->where(
             function ($query) use ($id){
                 $query->where(['is_active'=>1, 'id'=>$id]);
             }
         )->first();
+    }
+
+    public function singleSlugPost($slug)
+    {
+            return $this->model->where(
+                function ($query) use ($slug){
+                    $query->where(['is_active'=>1, 'slug'=>$slug]);
+                }
+            )->first();
     }
 
     public function permanentlyDelete($id)

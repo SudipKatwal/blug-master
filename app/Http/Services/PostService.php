@@ -77,10 +77,18 @@ class PostService extends Service
     /*
      *Methods for displaying store posts.
      */
-    public function posts()
+    public function posts($limit = null,$category = null)
     {
+        if (isset($limit) && isset($category)){
+            return $this->interface->posts($limit,$category);
+        }
+        if (isset($limit)){
+            return $this->interface->posts($limit);
+        }
         return $this->interface->posts();
     }
+
+
 
     /*
      *Methods for displaying store posts.
@@ -89,6 +97,14 @@ class PostService extends Service
     {
         return $this->interface->singlePost($id);
     }
+    /*
+     *Methods for displaying store posts.
+     */
+    public function singleSlugPost($slug)
+    {
+        return $this->interface->singleSlugPost($slug);
+    }
+
 
     /*
     *Methods for deleting store posts.

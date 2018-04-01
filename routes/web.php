@@ -1,16 +1,13 @@
 <?php
 
-Route::get('/', function () {
-    return view('front.pages.index');
-});
+Route::get('/', 'PublicPageController@index');
+Route::get('post/{single}','PublicPageController@singlePost')->name('single');
+
 Route::get('login','auth\LoginController@loginForm')->name('login');
 Route::post('login','auth\LoginController@login');
 Route::get('register','auth\RegisterController@register')->name('register');
 Route::post('register','auth\RegisterController@create');
 
-Route::get('single', function () {
-    return view('front.pages.single');
-});
 
 
 

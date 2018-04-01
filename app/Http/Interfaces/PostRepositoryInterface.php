@@ -8,9 +8,11 @@ interface PostRepositoryInterface extends RepositoryInterface
 
     public function updatePost($data,$id);
 
-    public function posts();
+    public function posts($limit = null, $category = null);
 
     public function singlePost($id);
+
+    public function singleSlugPost($slug);
 
     public function permanentlyDelete($id);
 

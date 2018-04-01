@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-	<title>TITLE</title>
+	<title>@yield('title',$title)</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8">
@@ -25,6 +25,7 @@
 	<!--FOR LOGIN-->
 	<link href="{{asset('front/css/login-style.css')}}" rel="stylesheet">
 
+    <script src="{{asset('front/js/jquery-3.1.1.min.js')}}"></script>
 
 
 </head>
@@ -43,7 +44,9 @@
 				<li><a href="#">Categories2</a></li>
 				<li><a href="#">Categories3</a></li>
 				<li><a href="#">Categories4</a></li>
-				<li><a href="{{URL::to('login')}}">Login</a></li>
+				@guest
+					<li><a href="{{URL::to('login')}}">Login</a></li>
+				@endguest
 			</ul><!-- main-menu -->
 
 			

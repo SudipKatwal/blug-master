@@ -58,7 +58,6 @@
 
 	<!-- SCIPTS -->
 
-	<script src="{{asset('front/js/jquery-3.1.1.min.js')}}"></script>
 
 	<script src="{{asset('front/js/tether.min.js')}}"></script>
 
