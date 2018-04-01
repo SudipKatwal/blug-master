@@ -7,7 +7,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Dashboard
+                Admin Dashboard
             </h1>
              <!-- Info boxes -->
     <section class="content">
