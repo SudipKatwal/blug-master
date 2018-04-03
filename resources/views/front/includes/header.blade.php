@@ -40,10 +40,12 @@
 
 			<ul class="main-menu visible-on-click" id="main-menu">
 				<li><a href="{{URL::to('/')}}">Home</a></li>
-				<li><a href="#">Categories1</a></li>
-				<li><a href="#">Categories2</a></li>
-				<li><a href="#">Categories3</a></li>
-				<li><a href="#">Categories4</a></li>
+				@if(count($categories)>0)
+					@forelse($categories as $key=>$category)
+						<li><a href="#">{{$category->name}}</a></li>
+					@empty
+					@endforelse
+				@endif
 				@guest
 					<li><a href="{{URL::to('login')}}">Login</a></li>
 				@endguest

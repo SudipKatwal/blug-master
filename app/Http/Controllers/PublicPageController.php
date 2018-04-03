@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Services\PostService;
 use App\Like;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ class PublicPageController extends Controller
     public function __construct(PostService $postService)
     {
         $this->postService = $postService;
+        $this->data('categories',Category::all());
 
     }
 
@@ -23,7 +25,7 @@ class PublicPageController extends Controller
         $this->data('title',$this->title('Home'));
         $posts = $this->postService->posts(3);
         $featureCategoryPorts = $this->postService->posts(1,'sports');
-        $categoryPosts = $this->postService->posts(1,'sports');
+//        $categoryPosts = $this->postService->posts(1,'sports');
         return view(
             'front.pages.index',
             $this->data,
