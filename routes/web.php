@@ -18,6 +18,12 @@ Route::group(
     ],
     function(){
     Route::get('/','DashboardController@dashboard');
+
+    //maile thapeko ---///
+    Route::get('writerdashboard','DashboardController@userdashboard');
+
+    //////
+
     Route::resource('posts','PostController');
     Route::post('posts/{id}/approve-post','PostController@postApprove')->name('approve.post');
 

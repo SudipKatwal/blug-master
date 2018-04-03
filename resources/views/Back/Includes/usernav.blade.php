@@ -1,4 +1,4 @@
-@section('navbar')
+@section('usernav')
 
     <header class="main-header">
         <!-- Logo -->
@@ -6,7 +6,7 @@
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>A</b>LT</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>BLOG</b>MASTER</span>
+            <span class="logo-lg"><b>BLO    G</b>MASTER</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -21,63 +21,8 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
-                    <li class="dropdown messages-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                          
-                                 <p>New Message </p>
-                            <span class="label label-success">4</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li><!-- start message -->
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="">
-                                            </div>
-                                            <h4>
-                                                Support Team
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <!-- end message -->
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
-                        </ul>
-                    </li>
-                     <li class="dropdown messages-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <p>User Request</p>
-                            <span class="label label-success">4</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li><!-- start message -->
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="">
-                                            </div>
-                                            <h4>
-                                                Support Team
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <!-- end message -->
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
-                        </ul>
-                    </li>
+                    
+                     
                     <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <p>Notification</p><span class="label label-success">4</span>
@@ -105,33 +50,7 @@
                             <li class="footer"><a href="#">See All Messages</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown messages-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <p>New Post</p><span class="label label-success">4</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li><!-- start message -->
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="">
-                                            </div>
-                                            <h4>
-                                                Support Team
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <!-- end message -->
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
-                        </ul>
-                    </li>
+                    
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -187,7 +106,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
                 <li>
-                    <a href="{{url('admin/')}}"><i class="fa fa-circle-o"></i><span> Dashboard</span></a>
+                    <a href="{{url('admin/writerdashboard')}}"><i class="fa fa-circle-o"></i><span> Writer Dashboard</span></a>
                 </li>
                 <li class="treeview">
                     <a href="#">
@@ -203,37 +122,12 @@
                         <li><a href="{{route('posts.index')}}"></i> <i class="fa fa-eye" class="fa fa-circle-o"></i>View Posts</a></li>
                     </ul>
                 </li>
-
-                 <li>
-                    <a href="{{route('category.index')}}"><i class="fa fa-plus"></i><span> Add Category</span></a>
-                </li>
-                <li>
-                    <a href="{{route('tags')}}"><i class="fa fa-plus"></i><span> Add Tag</span></a>
-                </li>
-                 <li>
-                    <a href="{{route('pages.index')}}"><i class="fa fa-plus"></i><span> Add Page</span></a>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                      {{--   <i class="fa fa-files-o"></i> --}}
-                      <i class="fa fa-user"></i>
-                        <span> Users</span>
-
-
-                    </a>
-                    <ul class="treeview-menu">
-                        
-                        <li><a href="{{route('users.create')}}"> <i class="fa fa-plus" class="fa fa-circle-o"></i> Add Users</a></li>
-                        <li><a href="{{route('users.index','user=writer')}}"> <i class="fa fa-eye" class="fa fa-circle-o"></i>View Users</a></li>
-                    </ul>
-                </li>
+                
                 <li>
                     <a href=""><i class="fa fa-sliders"></i><span> Post Logs</span></a>
                 </li>
 
-                 <li>
-                    <a href="{{route('users.index','user=admin')}}"><i class="fa fa-group"></i><span> Admins</span></a>
-                </li>
+                 
                 <li>
                     <a href=""><i class="fa fa-history"></i><span> Payment History</span></a>
                 </li>

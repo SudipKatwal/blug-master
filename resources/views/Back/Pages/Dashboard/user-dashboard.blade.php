@@ -1,4 +1,4 @@
-@extends('Back.Layouts.master')
+@extends('Back.Layouts.user-master')
 @section('content')
 
 
@@ -62,7 +62,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Due Amount</span>
-             <h2>Rs.434434</h2>
+             <h2>Rs.34</h2>
             </div>
             <!-- /.info-box-content -->
           </div>

@@ -21,4 +21,12 @@ class DashboardController extends Controller
             $this->data
         );
     }
+    public function userdashboard()
+    {
+        $this->data('title',$this->title('Writer Dashboard'));
+        return view(
+            $this->page.'Dashboard.user-dashboard',
+            $this->data
+        );
+    }
 }
