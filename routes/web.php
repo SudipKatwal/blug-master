@@ -18,19 +18,25 @@ Route::group(
     ],
     function(){
     Route::get('/','DashboardController@dashboard');
+<<<<<<< HEAD
 
     //maile thapeko ---///
     Route::get('writerdashboard','DashboardController@userdashboard');
 
     //////
+=======
+//    Route::get('dashboard','DashboardController@writerDashboard');
+>>>>>>> 0ff9c7f98e19caa5670b594fdceee4dea7034efd
 
     Route::resource('posts','PostController');
     Route::post('posts/{id}/approve-post','PostController@postApprove')->name('approve.post');
+    Route::get('post-logs','PostController@postLogs')->name('post.logs');
 
-    Route::resource('users','UserController');
+
+        Route::resource('users','UserController');
 
     Route::resource('pages','PageController');
-    Route::post('pages/{id}/change-status','CategoryController@updateStatus')->name('pages.status');
+    Route::post('pages/{id}/change-status','PageController@updateStatus')->name('pages.status');
 
     Route::resource('category','CategoryController');
     Route::post('category/{id}/change-status','CategoryController@updateStatus')->name('category.status');
@@ -43,8 +49,7 @@ Route::group(
 
     //Maile thapeko route haru ---// Change it as your preference
 
-     Route::get('postlogs','PostController@postlogs');
-     Route::get('WriterDash','PostController@userdash');
+//     Route::get('WriterDash','PostController@userdash');
 
 
 });

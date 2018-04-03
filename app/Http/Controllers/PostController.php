@@ -27,7 +27,15 @@ class PostController extends Controller
     {
 
         $this->data('title',$this->title('All Posts'));
-        $posts = $this->postServices->posts();
+        if(Auth::user()->role->slug=='admin'){
+            $posts = $this->postServices->posts();
+        }else{
+            $posts = Post::where(
+                function ($query){
+                    $query->where('user_id',Auth::id());
+                }
+            )->latest()->get();
+        }
         return view(
             'Back.Pages.Posts.all-posts',
             $this->data,
@@ -181,11 +189,23 @@ class PostController extends Controller
     }
 
 
-    public function postlogs()
+    public function postLogs()
     {
-        $this->data('title',$this->title('PostLogs'));
-        return view('Back.Pages.Posts.post-logs',
-        $this->data);
+        $this->data('title',$this->title('Post Logs'));
+        if (Auth::user()->role->slug=='admin'){
+            $posts = $this->postServices->posts();
+        }else{
+            $posts = Post::where(
+                function ($query){
+                    $query->where('user_id',Auth::id());
+                }
+            )->latest()->get();
+        }
+        return view(
+            'Back.Pages.Posts.post-logs',
+            $this->data,
+            compact('posts')
+        );
     }
     public function userdash()
     {

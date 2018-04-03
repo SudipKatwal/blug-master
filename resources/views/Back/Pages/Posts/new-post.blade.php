@@ -84,6 +84,17 @@
                                                 @endif
                                             </div>
                                         </div>
+                                        <div class="box-body pad">
+                                            <div class="form-group {{ $errors->has('tags') ? ' has-error' : '' }}">
+                                                <label for="packagetitle">Tags</label>
+                                                <input type="text" value="{{ old('tags') }}" class="form-control user-input" name="tags" placeholder="Enter Comma Separated value">
+                                                @if ($errors->has('tags'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('tags') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>

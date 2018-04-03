@@ -56,6 +56,28 @@ class LoginController extends Controller
             return redirect()->back()->with('error','Credential does not match');
         }
     }
+
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        foreach ($this->guard()->user()->role as $role){
+            if ($role->name == 'admin'){
+                return redirect('/');
+            } elseif ($role->name == 'editor'){
+                return redirect('/dashboard');
+            }
+        }
+    }
+
     /**
      * Create a new controller instance.
      *

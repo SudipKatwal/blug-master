@@ -40,62 +40,28 @@
                   <th>Status</th>
                   <th>Reason</th>
                 </tr>
-                <tr>
-                  <td>1</td>
-                  <td>John Doe</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-success">Approved</span></td>
-                  <td>Everything is good</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Alexander Pierce</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-warning">Pending</span></td>
-                  <td>Content are copied from other sites.</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Bob Doe</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-primary">Approved</span></td>
-                  <td>Nice content!</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Mike Doe</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-danger">Pending</span></td>
-                  <td>Content is too short</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>John Doe</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-success">Approved</span></td>
-                  <td>Everything is good</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Alexander Pierce</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-warning">Pending</span></td>
-                  <td>Content are copied from other sites.</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Bob Doe</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-primary">Approved</span></td>
-                  <td>Nice content!</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Mike Doe</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-danger">Pending</span></td>
-                  <td>Content is too short</td>
-                </tr>
+                @if(count($posts)>0)
+                  @forelse($posts as $key=>$post)
+                    <tr>
+                      <td>{{++$key}}</td>
+                      <td>{{$post->user->name}}</td>
+                      <td>{{$post->created_at}}</td>
+                      <td>
+                          <span class="label label-success">
+                              @if($post->is_approved==1)
+                                  Approved
+                              @elseif($post->is_resubmitted==1)
+                                  Resubmitted
+                              @else
+                                  Pending
+                              @endif
+                          </span>
+                      </td>
+                      <td>Everything is good</td>
+                    </tr>
+                    @empty
+                  @endforelse
+                @endif
               </table>
             </div>
             <!-- /.box-body -->
