@@ -18,16 +18,6 @@ Route::group(
     ],
     function(){
     Route::get('/','DashboardController@dashboard');
-<<<<<<< HEAD
-
-    //maile thapeko ---///
-    Route::get('writerdashboard','DashboardController@userdashboard');
-
-    //////
-=======
-//    Route::get('dashboard','DashboardController@writerDashboard');
->>>>>>> 0ff9c7f98e19caa5670b594fdceee4dea7034efd
-
     Route::resource('posts','PostController');
     Route::post('posts/{id}/approve-post','PostController@postApprove')->name('approve.post');
     Route::get('post-logs','PostController@postLogs')->name('post.logs');
