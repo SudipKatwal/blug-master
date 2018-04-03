@@ -64,6 +64,10 @@
 	<script src="{{asset('front/js/bootstrap.js')}}"></script>
 
 	<script src="{{asset('front/js/scripts.js')}}"></script>
+	<script src="{{asset('front/js/jquery-3.1.1.min.js')}}"></script>
+
+	<script src="{{asset('front/js/swiper.js')}}"></script>
+
 
 	<!--for login -->
 	<script src="{{asset('front/js/login-js.js')}}"></script>

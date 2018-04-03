@@ -151,9 +151,11 @@
                                             <div class="entry input-group">
                                                 <input class="btn btn-default" name="images[]" type="file">
                                                 <span class="input-group-btn">
+                                                   
                                                         <button class="btn btn-success btn-image" type="button">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                             </button>
+                                                        </div>
                                                         </span>
                                             </div>
 

@@ -18,10 +18,7 @@ Route::group(
     ],
     function(){
     Route::get('/','DashboardController@dashboard');
-<<<<<<< HEAD
 
-=======
->>>>>>> eeb53b15ecf9f3f6f9ee9fd7248b14b7eec4f7f5
     Route::resource('posts','PostController');
     Route::post('posts/{id}/approve-post','PostController@postApprove')->name('approve.post');
     Route::get('post-logs','PostController@postLogs')->name('post.logs');
