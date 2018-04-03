@@ -216,7 +216,7 @@
                     <a href=""><i class="fa fa-history"></i><span> Payment History</span></a>
                 </li>
                 <li>
-                    <a href=""><i class="fa fa-wrench"></i><span> Settings</span></a>
+                    <a href="{{route('users.setting')}}"><i class="fa fa-wrench"></i><span> Settings</span></a>
                 </li>
                 <li>
                     <a href=""><i class="fa fa-sign-out"></i><span> Log Out</span></a>

@@ -26,11 +26,11 @@ Route::group(
 
     Route::resource('users','UserController');
     Route::get('notification/user','UserController@notification')->name('notification.user');
+    Route::get('setting','UserController@settingForm')->name('users.setting');
+    Route::post('setting','UserController@settingAction');
+    Route::post('setting/change-password','UserController@changePassword')->name('change.password');
+        Route::post('setting/change-profile-photo','UserController@changePhoto')->name('change.photo');
 
-<<<<<<< HEAD
-=======
-    Route::resource('users','UserController');
->>>>>>> f0b8d9c1117c5824a4f5acc20e3f9773fc3f5909
 
         Route::resource('pages','PageController');
     Route::post('pages/{id}/change-status','PageController@updateStatus')->name('pages.status');
@@ -41,15 +41,13 @@ Route::group(
     Route::get('tags','PostController@tag')->name('tags');
     Route::post('tags','PostController@tagAdd')->name('tags.add');
 
+
     Route::post('logout','Auth\LoginController@logout')->name('logout');
 
 
     //Maile thapeko route haru ---// Change it as your preference
 
-    Route::get('setting',function(){
-        return view('Back.Pages.setting.setting');
 
-    });
     Route::get('profile',function(){
         return view('Back.Pages.profile.profile');
 

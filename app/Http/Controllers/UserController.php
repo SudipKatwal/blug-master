@@ -6,7 +6,10 @@ use App\Mail\EmailVerification;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Image;
 
 class UserController extends DashboardController
 {
@@ -119,7 +122,97 @@ class UserController extends DashboardController
      */
     public function edit($id)
     {
-        //
+        $this->data('title',$this->title('Setting'));
+        return view(
+            'Back.Pages.setting.setting',
+            $this->data
+        );
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function settingForm()
+    {
+        $this->data('title',$this->title('Setting'));
+        return view(
+            'Back.Pages.setting.setting',
+            $this->data
+        );
+    }/**
+ * Show the form for editing the specified resource.
+ *
+ * @param  int  $id
+ * @return \Illuminate\Http\Response
+ */
+    public function settingAction(Request $request)
+    {
+        $this->validate($request,[
+            'name' => 'required|string|max:255',
+            'address'   => 'required|string',
+        ]);
+        $data = $request->all();
+        unset($data['_token']);
+        unset($data['id']);
+        if (User::find($request->id)->update($data)){
+            return redirect()->route('users.setting')->with('success','Setting has been updated.');
+        }
+
+    }
+
+/* Show the form for editing the specified resource.
+*
+* @param  int  $id
+* @return \Illuminate\Http\Response
+*/
+    public function changePassword(Request $request)
+    {
+        $this->validate($request,[
+            'o_password' => 'required|min:6',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $password = bcrypt($request->password);
+
+        if (!(Hash::check($request->o_password, Auth::user()->password))) {
+            return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
+        }
+
+
+        if (User::find($request->id)->update(['password'=>$password])){
+            return redirect()->route('users.setting')->with('success','Password has been updated.');
+        }
+
+    }
+    public function changePhoto(Request $request)
+    {
+        $this->validate($request, [
+            'profile' => 'required|image|max:2048',
+        ]);
+
+        if ($request->hasFile('profile')) {
+
+            $uploadPath = public_path('Images/profile-thumbnails/');
+            if (Auth::user()->thumbnails){
+                unlink($uploadPath.Auth::user()->thumbnails);
+            }
+            $image = $request->file('profile');
+            $ext = $image->getClientOriginalExtension();
+            $imageName = date('Ymds-') . str_random(6) . '.' . $ext;
+            $save = Image::make($image)->resize(
+                850,
+                null,
+                function ($constraint) {
+                    $constraint->aspectRatio();
+                }
+            )->crop(850, 450)->save($uploadPath . $imageName);
+
+                if (User::find($request->id)->update(['thumbnails'=>$imageName])) {
+                    return redirect()->route('users.setting')->with('success', 'Profile picture has been updated.');
+                }
+        }
     }
 
     /**
