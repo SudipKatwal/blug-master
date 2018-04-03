@@ -23,11 +23,13 @@ Route::group(
     Route::resource('posts','PostController');
     Route::post('posts/{id}/approve-post','PostController@postApprove')->name('approve.post');
     Route::get('post-logs','PostController@postLogs')->name('post.logs');
+    Route::post('post/resubmission','PostController@postResubmission')->name('post.resubmission');
+
+    Route::resource('users','UserController');
+    Route::get('notification/user','UserController@notification')->name('notification.user');
 
 
-        Route::resource('users','UserController');
-
-    Route::resource('pages','PageController');
+        Route::resource('pages','PageController');
     Route::post('pages/{id}/change-status','PageController@updateStatus')->name('pages.status');
 
     Route::resource('category','CategoryController');

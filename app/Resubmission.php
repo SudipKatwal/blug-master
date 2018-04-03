@@ -4,12 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class Resubmission extends Model
 {
-    protected $fillable = ['name','slug'];
+    protected $fillable = ['post_id','reasons'];
 
-    public function post()
-    {
+    public function post(){
         return $this->belongsTo(Post::class);
     }
 }

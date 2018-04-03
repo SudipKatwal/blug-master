@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Mail\EmailVerification;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
-class UserController extends Controller
+class UserController extends DashboardController
 {
 
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('admin');
     }
 
@@ -154,5 +156,12 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function notification(){
+        if (User::where('is_active',1)->update(['notification'=>0])){
+            return User::where('notification',1)->get()->count();
+        }
     }
 }

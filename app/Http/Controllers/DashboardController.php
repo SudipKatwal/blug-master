@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -10,6 +13,8 @@ class DashboardController extends Controller
 
     public function __construct()
     {
+        $this->data('userNotification',User::where(['notification'=>1])->get());
+        $this->data('postNotification',Post::where(['notification'=>1])->get());
         $this->page = 'Back.Pages.';
     }
 

@@ -38,13 +38,13 @@
                             </div>
                             <div class="col-lg-8">
                                 <h4>{{$post->title}}</h4>
-                                {!! $post->body !!}
-                                &nbsp &nbsp <span class="badge">By : {{$post->user->role->name}} </span>
+
+                                &nbsp &nbsp <span class="badge">By : {{$post->user->name}} </span>
                                 &nbsp &nbsp <span class="badge">Category : {{$post->category->name}}</span><br>
                                 <hr>
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div class="col-lg-3 pull-right">
+                                        <div class="col-lg-2 pull-right">
                                             <form action="{{ route('posts.destroy' , $post->id)}}" method="POST">
                                                 <input name="_method" type="hidden" value="DELETE">
                                                 {{ csrf_field() }}
@@ -58,15 +58,15 @@
 
                                             </form>
                                         </div>
-                                        <div class="col-lg-3 pull-right">
+                                        <div class="col-lg-2 pull-right">
                                             <a class="btn btn-primary btn-sm" href="{{route('posts.edit',$post->id)}}">
                                                 Edit </a>
                                         </div>
-                                        <div class="col-lg-3 pull-right">
+                                        <div class="col-lg-2 pull-right">
                                             <a class="btn btn-primary btn-sm" href="{{route('posts.show',$post->id)}}">
                                                 View Details </a>
                                         </div>
-
+                                        
                                         <div class="col-lg-2 pull-right">
                                             <form method="post" action="{{route('approve.post',$post->id)}}">
                                                 <input type="hidden" name="id" value="{{$post->id}}">
@@ -74,7 +74,7 @@
                                                 @if($post->is_approved==0)
                                                     <button name="enable" class="btn btn-primary btn-sm">Approve</button>
                                                 @else
-                                                    <button name="disable" class="btn btn-danger btn-sm">Approved</button>
+                                                    <button name="disable" class="btn btn-success btn-sm">Approved</button>
                                                 @endif
                                             </form>
                                         </div>

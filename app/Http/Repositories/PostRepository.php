@@ -18,6 +18,16 @@ class PostRepository extends Repository implements PostRepositoryInterface
     public function addNewPost($data)
     {
         $post = (new Post())->create($this->postJson($data));
+
+        if (isset($data['tags'])){
+            foreach ($data['tags'] as $key=>$tag){
+                $post->tags()->create(
+                    [
+                        'name'      =>$data['tags'][$key],
+                    ]
+                );
+            }
+        }
         if (isset($data['image'])){
             foreach ($data['image'] as $key=>$image){
                 $post->images()->create(

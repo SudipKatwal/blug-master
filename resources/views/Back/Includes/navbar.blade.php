@@ -22,58 +22,92 @@
                 <ul class="nav navbar-nav">
                     @if(Auth::user()->role->slug=='admin')
                      <li class="dropdown messages-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <a href="#" id="userNotification" class="dropdown-toggle" data-toggle="dropdown">
                             <p>User Request</p>
-                            <span class="label label-success">4</span>
+                            <span id="count" class="label label-success">{{count($userNotification)}}</span>
                         </a>
+                         <script>
+                             $(document).on('click','#userNotification',function () {
+                                 $.ajax({
+                                     type:'get',
+                                     url:'{{route('notification.user')}}',
+                                     success:function (data) {
+
+                                         $('#count').replaceWith('<span class="label label-success">'+data+'</span>');
+                                     }
+                                 });
+                             });
+                         </script>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
+                            <li class="header">You have {{count($userNotification)}} new users</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
+                                    @if(count($userNotification)>0)
+                                        @forelse($userNotification as $key=>$user)
                                     <li><!-- start message -->
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="">
+                                                <img src="{{URL::to('Images/profile-thumbnails/'.$user->thumbnails)}}" class="img-circle" alt="">
                                             </div>
                                             <h4>
-                                                Support Team
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                {{$user->name}}
+                                                <small><i class="fa fa-clock-o"></i>{{$user->created_at->diffForHumans()}}</small>
                                             </h4>
-                                            <p>Why not buy a new awesome theme?</p>
+                                            <p>{{$user->email}} from {{$user->address}}</p>
                                         </a>
                                     </li>
                                     <!-- end message -->
+                                        @empty
+                                        @endforelse
+                                        @endif
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
+                            <li class="footer"><a href="{{route('users.index','user=writer')}}">See All Users</a></li>
                         </ul>
                     </li>
                     <li class="dropdown messages-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <p>New Post</p><span class="label label-success">4</span>
+                        <a href="#" id="postNotification" class="dropdown-toggle" data-toggle="dropdown">
+                            <p>New Post</p><span id="count" class="label label-success">{{count($postNotification)}}</span>
                         </a>
+                        <script>
+                            $(document).on('click','#postNotification',function () {
+                                $.ajax({
+                                    type:'get',
+                                    url:'{{route('notification.post')}}',
+                                    success:function (data) {
+                                        $('#count').replaceWith('<span id="count" class="label label-success">'+data+'</span>');
+                                    }
+                                });
+                            });
+                        </script>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
+                            <li class="header">You have {{count($postNotification)}} new posts</li>
+
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
+                                    @if(count($postNotification)>0)
+                                        @forelse($postNotification as $key=>$post)
                                     <li><!-- start message -->
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="">
+                                                <img src="{{URL::to('Images/post-thumbnails/'.$post->thumbnail)}}" class="img-circle" alt="">
                                             </div>
                                             <h4>
-                                                Support Team
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                {{$post->title}}
+                                                <small><i class="fa fa-clock-o"></i>{{$post->created_at->diffForHumans()}}</small>
                                             </h4>
-                                            <p>Why not buy a new awesome theme?</p>
+                                            <p>{{$post->category->name}} by {{$post->user->name}}</p>
                                         </a>
                                     </li>
                                     <!-- end message -->
+                                    @empty
+                                    @endforelse
+                                    @endif
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
+                            <li class="footer"><a href="{{route('posts.index')}}">See All Posts</a></li>
                         </ul>
                     </li>
                     @endif

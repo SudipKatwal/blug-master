@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['title','slug','body','thumbnail','words_count','user_id','category_id','main_keywords','lsi_keywords','is_approved'];
+    protected $fillable = ['title','slug','body','thumbnail','words_count','user_id','category_id','main_keywords','lsi_keywords','is_approved','is_resubmitted'];
 
 
     public function category()
@@ -41,5 +41,10 @@ class Post extends Model
 
     public function images(){
         return $this->hasMany(Image::class);
+    }
+
+    public function resubmission()
+    {
+        return $this->hasMany(Resubmission::class);
     }
 }

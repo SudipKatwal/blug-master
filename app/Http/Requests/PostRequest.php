@@ -33,7 +33,7 @@ class PostRequest extends FormRequest
                     'main_keyword'      => 'required',
                     'lsi_keywords'      => 'required',
                     'category'          => 'required',
-                    'featured_image'    => 'image|max:2048',
+                    'featured_image'    => 'required|image|max:2048',
                     'images.*'          => 'image|max:2048',
                 ];
             return $rules;
