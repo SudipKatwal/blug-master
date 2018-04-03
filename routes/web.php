@@ -33,6 +33,15 @@ Route::group(
     Route::post('tags','PostController@tagAdd')->name('tags.add');
 
     Route::post('logout','Auth\LoginController@logout')->name('logout');
+
+
+    //Maile thapeko route haru ---// Change it as your preference
+
+     Route::get('postlogs','PostController@postlogs');
+     Route::get('WriterDash','PostController@userdash');
+
+
 });
+
 
 //Route::get('/home', 'HomeController@index')->name('home');

@@ -1,8 +1,9 @@
-<link href="{{asset('front/single-post-css/styles.css')}}" rel="stylesheet">
-	<link href="{{asset('front/single-post-css/responsive.css')}}" rel="stylesheet">
+
+
 @extends('front.layout.master')
 @section('content')
-	
+	<link href="{{asset('front/single-post-css/responsive.css')}}" rel="stylesheet">
+<link href="{{asset('front/single-post-css/styles.css')}}" rel="stylesheet">
 <section class="post-area section">
 		<div class="container">
 

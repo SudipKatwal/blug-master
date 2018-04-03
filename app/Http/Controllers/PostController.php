@@ -179,5 +179,19 @@ class PostController extends Controller
     {
         //
     }
-  
+
+
+    public function postlogs()
+    {
+        $this->data('title',$this->title('PostLogs'));
+        return view('Back.Pages.Posts.post-logs',
+        $this->data);
+    }
+    public function userdash()
+    {
+        $this->data('title',$this->title('Writers Dash'));
+        return view('Back.Pages.Dashboard.user-dashboard',
+        $this->data);
+    }
+    
 }
