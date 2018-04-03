@@ -16,7 +16,7 @@
 							
 							<div class="blog-image"><img src="{{URL::to('Images/post-thumbnails/'.$post->thumbnail)}}" alt="Blog Image"></div>
 
-							<a class="avatar" href="#"><img src="{{URL::to('Images/profile-thumbnails/'.$post->user->thumbnail)}}" alt="Profile Image"></a>
+							<a class="avatar" href="#"><img src="{{URL::to('Images/profile-thumbnails/'.$post->user->thumbnails)}}" alt="Profile Image"></a>
 
 							<div class="blog-info">
 								

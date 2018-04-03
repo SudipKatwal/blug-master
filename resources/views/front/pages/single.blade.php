@@ -22,7 +22,7 @@
 								</div>
 
 								<div class="middle-area">
-									<a class="name" href="#"><b>{{$post->user->name}}</b></a>
+									<a class="name" href="#"><strong><i>By-</i> </strong><b>{{$post->user->name}}</b></a>
 									<h6 class="date">{{$post->created_at->diffForHumans()}}</h6>
 								</div>
 
@@ -63,6 +63,9 @@
 							</div>
 
 						</div><!-- post-info --> --}}
+						<div id="fb-root"></div>
+
+				<div class="fb-comments" data-href="{{Request::URL()}}" data-numposts="5"></div>
 
 
 					</div><!-- main-post -->
