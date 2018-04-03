@@ -22,7 +22,7 @@
 								</div>
 
 								<div class="middle-area">
-									<a class="name" href="#"><b>{{$post->user->name}}</b></a>
+									<a class="name" href="#"><strong><i>By-</i> </strong><b>{{$post->user->name}}</b></a>
 									<h6 class="date">{{$post->created_at->diffForHumans()}}</h6>
 								</div>
 
@@ -37,29 +37,21 @@
 							<p class="para"></p>
 
 							<ul class="tags">
-								<li><a href="#">Mnual</a></li>
-								<li><a href="#">Liberty</a></li>
-								<li><a href="#">Recommendation</a></li>
-								<li><a href="#">Inspiration</a></li>
+								<li><a href="#">{!! $post->tags !!}</a></li>
+								
 							</ul>
 						</div><!-- blog-post-inner -->
 
 						<div class="post-icons-area">
 							<ul class="post-icons">
-								<li><a href="#"><i class="fas fa-heart"></i>57</a></li>
-									<li><a href="#"><i class="fas fa-comments"></i>6</a></li>
-									<li><a href="#"><i class="fas fa-eye"></i>138</a></li>
+								
+									<li><a href="#">Post Vews <i class="fas fa-eye"></i> 138</a></li>
 							</ul>
 
-							<ul class="icons">
-								<li>SHARE : </li>
-								<li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
-								<li><a href="#"><i class="fab fa-twitter-square"></i></a></li>
-								<li><a href="#"><i class="fab fa-pinterest-square"></i></a></li>
-							</ul>
+							
 						</div>
 
-						<div class="post-footer post-info">
+						{{-- <div class="post-footer post-info">
 
 							<div class="left-area">
 								<a class="avatar" href="#"><img src="{{asset('front/images/avatar-1-120x120.jpg')}}" alt="Profile Image"></a>
@@ -70,7 +62,10 @@
 								<h6 class="date">on Sep 29, 2017 at 9:48 am</h6>
 							</div>
 
-						</div><!-- post-info -->
+						</div><!-- post-info --> --}}
+						<div id="fb-root"></div>
+
+				<div class="fb-comments" data-href="{{Request::URL()}}" data-numposts="5"></div>
 
 
 					</div><!-- main-post -->
@@ -131,30 +126,40 @@
 
 				@if(count($posts))
 					@forelse($posts as $key=>$post)
-						<div class="col-lg-4 col-md-6">
-							<div class="card h-100">
-								<div class="single-post post-style-1">
+					
+				<div class="col-lg-4 col-md-6">
+					<div class="card h-100">
+						<div class="single-post post-style-1">
+							
+							<div class="blog-image"><img src="{{URL::to('Images/post-thumbnails/'.$post->thumbnail)}}" alt="Blog Image"></div>
 
-									<div class="blog-image"><img src="{{URL::to('Images/post-thumbnails/'.$post->thumbnail)}}" alt="Blog Image"></div>
+							<a class="avatar" href="#"><img src="{{URL::to('Images/profile-thumbnails/'.$post->user->thumbnail)}}" alt="Profile Image"></a>
 
-									<a class="avatar" href="#"><img src="{{URL::to('Images/post-thumbnails/'.$post->user->thumbnail)}}" alt="Profile Image"></a>
+							<div class="blog-info">
+								
+								<h4 class="title"><a href="{{route('single',$post->slug)}}"><b>{!! $post->title !!}</b></a></h4>
+								<p>Category <strong style="color: green;">{{$post->category->name}}</strong>
+									</p>
+							    <h6><i>By &nbsp;<strong style="color: red;"></colgroup>{{$post->user->name}}</strong> <span> Published {{$post->created_at->diffForHumans()}}</span></i></h6>
+							   <hr>
+								<p class="param">{!! str_limit($post->body, 120 , ' ..... ' )!!}</p>
+								
 
-									<div class="blog-info">
+								<ul class="post-footer">
+									<li><a href="#"><i class=" fa fa-eye"></i>138</a></li>
+									<li><a href="{{route('single',$post->slug)}}">Read More</a></li>
+									
+								</ul>
+									
+									
+								
+								{{-- </ul> --}}
 
-										<h4 class="title"><a href="{{route('single',$post->slug)}}"><b>{!! $post->title !!}</b></a></h4>
-										<h5>By<strong> {{$post->user->name}}</strong></h5>
-										<p>on <strong>{{$post->category->name}}</strong></p>
-
-										<ul class="post-footer">
-											<li><a href="#"><i class="fas fa-heart"></i>57</a></li>
-											<li><a href="#"><i class="fas fa-comments"></i>6</a></li>
-											<li><a href="#"><i class="fas fa-eye"></i>138</a></li>
-										</ul>
-
-									</div><!-- blog-info -->
-								</div><!-- single-post -->
-							</div><!-- card -->
-						</div><!-- col-lg-4 col-md-6 -->
+							</div><!-- blog-info -->
+						</div><!-- single-post -->
+					</div><!-- card -->
+				</div><!-- col-lg-4 col-md-6 -->
+			</a>
 					@empty
 					@endforelse
 				@endif

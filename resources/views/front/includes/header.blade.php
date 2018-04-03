@@ -15,6 +15,7 @@
 
 
 	<!-- Stylesheets -->
+	
 
 	<link href="{{asset('front/css/bootstrap.css')}}" rel="stylesheet">
 	<link href="{{asset('front/css/ionicons.css')}}" rel="stylesheet">
@@ -24,6 +25,7 @@
 	<link href="{{asset('front/css/responsive.css')}}" rel="stylesheet">
 	<!--FOR LOGIN-->
 	<link href="{{asset('front/css/login-style.css')}}" rel="stylesheet">
+
 
     <script src="{{asset('front/js/jquery-3.1.1.min.js')}}"></script>
 

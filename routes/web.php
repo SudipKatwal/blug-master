@@ -18,7 +18,6 @@ Route::group(
     ],
     function(){
     Route::get('/','DashboardController@dashboard');
-//    Route::get('dashboard','DashboardController@writerDashboard');
 
     Route::resource('posts','PostController');
     Route::post('posts/{id}/approve-post','PostController@postApprove')->name('approve.post');
@@ -28,6 +27,10 @@ Route::group(
     Route::resource('users','UserController');
     Route::get('notification/user','UserController@notification')->name('notification.user');
 
+<<<<<<< HEAD
+=======
+    Route::resource('users','UserController');
+>>>>>>> f0b8d9c1117c5824a4f5acc20e3f9773fc3f5909
 
         Route::resource('pages','PageController');
     Route::post('pages/{id}/change-status','PageController@updateStatus')->name('pages.status');
@@ -43,7 +46,14 @@ Route::group(
 
     //Maile thapeko route haru ---// Change it as your preference
 
-//     Route::get('WriterDash','PostController@userdash');
+    Route::get('setting',function(){
+        return view('Back.Pages.setting.setting');
+
+    });
+    Route::get('profile',function(){
+        return view('Back.Pages.profile.profile');
+
+    });
 
 
 });
