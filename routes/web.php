@@ -24,7 +24,7 @@ Route::group(
     Route::get('post-logs','PostController@postLogs')->name('post.logs');
 
 
-        Route::resource('users','UserController');
+    Route::resource('users','UserController');
 
     Route::resource('pages','PageController');
     Route::post('pages/{id}/change-status','PageController@updateStatus')->name('pages.status');
@@ -40,7 +40,14 @@ Route::group(
 
     //Maile thapeko route haru ---// Change it as your preference
 
-//     Route::get('WriterDash','PostController@userdash');
+    Route::get('setting',function(){
+        return view('Back.Pages.setting.setting');
+
+    });
+    Route::get('profile',function(){
+        return view('Back.Pages.profile.profile');
+
+    });
 
 
 });
