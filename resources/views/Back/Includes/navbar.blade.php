@@ -20,6 +20,55 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+
+                    @if(Auth::user()->role->slug!='admin')
+                        <li class="dropdown messages-menu">
+                            <a href="#" id="writerNotification" class="dropdown-toggle" data-toggle="dropdown">
+                                <p>New Notification</p><span id="count" class="label label-success">{{count($writerNotification)}}</span>
+                            </a>
+                            <script>
+                                $(document).on('click','#wNotification',function () {
+                                    $.ajax({
+                                        type:'get',
+                                        url:'',
+                                        success:function (data) {
+                                            $('#count').replaceWith('<span id="count" class="label label-success">'+data+'</span>');
+                                        }
+                                    });
+                                });
+                            </script>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have {{count($writerNotification)}} new notification</li>
+
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        @if(count($writerNotification)>0)
+                                            @forelse($writerNotification as $key=>$post)
+                                                <li><!-- start message -->
+                                                    <a href="{{route('posts.edit',$post->id)}}">
+                                                        <div class="pull-left">
+                                                            <img src="{{URL::to('Images/post-thumbnails/'.$post->thumbnail)}}" class="img-circle" alt="">
+                                                        </div>
+                                                        <h4>
+                                                            {{$post->title}}
+                                                            <small><i class="fa fa-clock-o"></i>{{$post->created_at->diffForHumans()}}</small>
+                                                        </h4>
+                                                        <p>{{$post->category->name}} by {{$post->user->name}}</p>
+                                                    </a>
+                                                </li>
+                                                <!-- end message -->
+                                            @empty
+                                            @endforelse
+                                        @endif
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="{{route('posts.index')}}">See All Posts</a></li>
+                            </ul>
+                        </li>
+                    @endif
+
+
                     @if(Auth::user()->role->slug=='admin')
                      <li class="dropdown messages-menu">
                         <a href="#" id="userNotification" class="dropdown-toggle" data-toggle="dropdown">
@@ -124,14 +173,14 @@
 
                                 <p>
                                     {{Auth::user()->name}}
-                                    <small>Member since Nov. 2012</small>
+                                    <small>Member since {{Auth::user()->created_at->diffForHumans()}}</small>
                                 </p>
                             </li>
 
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="{{route('profile',Auth::id())}}" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <form action="{{route('logout')}}" method="post">
@@ -217,9 +266,6 @@
                 </li>
                 <li>
                     <a href="{{route('users.setting')}}"><i class="fa fa-wrench"></i><span> Settings</span></a>
-                </li>
-                <li>
-                    <a href=""><i class="fa fa-sign-out"></i><span> Log Out</span></a>
                 </li>
 
             </ul>

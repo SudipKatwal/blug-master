@@ -57,7 +57,16 @@
                               @endif
                           </span>
                       </td>
-                      <td>Everything is good</td>
+                      <td>
+                          <ul>
+                          @if(isset($post->resubmission))
+                            @forelse($post->resubmission as $resubmission)
+                                    <li>{{$resubmission->reasons}}</li>
+                              @empty
+                              @endforelse
+                          @endif
+                          </ul>
+                      </td>
                     </tr>
                     @empty
                   @endforelse
@@ -78,7 +87,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Approved posts</span>
-              <h2>434</h2>
+              <h2>{{$approvedPost}}</h2>
               {{-- <span class="info-box-number">37</span> --}}
             </div>
             <!-- /.info-box-content -->
@@ -92,7 +101,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Pending Posts</span>
-              <h2>44</h2>
+              <h2>{{$pendingPost}}</h2>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -108,8 +117,8 @@
             <span class="info-box-icon bg-red"><i class="fa fa-close"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Rejected posts</span>
-             <h2>434</h2>
+              <span class="info-box-text">Resubmitted posts</span>
+             <h2>{{$resubmittedPost}}</h2>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -124,9 +133,7 @@
               <span class="info-box-text">Assigned Posts</span>
              <h2>34</h2>
             </div>
-            <!-- /.info-box-content -->
           </div>
-          <!-- /.info-box -->
         </div>
         <!-- /.col -->
       </div>

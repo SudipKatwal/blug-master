@@ -32,7 +32,7 @@
                         <div class="panel-body">
                                     <div class="form-group">
                                         <h1>{!! $detail->title !!}</h1>
-                                        &nbsp &nbsp <span class="badge">By : {{$detail->user->role->name}} </span>
+                                        &nbsp &nbsp <span class="badge">By : {{$detail->user->name}} </span>
                                         &nbsp &nbsp <span class="badge">Category : {{$detail->category->name}}</span><br>
                                     </div>
                                     <div class="form-group">

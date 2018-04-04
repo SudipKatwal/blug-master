@@ -85,7 +85,7 @@
                                 </tr>
 
                             </table>
-                                <button class="btn btn-primary btn-block"><b>Update Setting</b></button>
+                                <button class="btn btn-primary btn-block"><b>Change Password</b></button>
 
                             </form>
                         </div>

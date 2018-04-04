@@ -17,7 +17,7 @@ class UserController extends DashboardController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('admin');
+        $this->middleware('admin')->except('settingForm','settingAction','changePassword','changePhoto');
     }
 
     /**
@@ -256,5 +256,17 @@ class UserController extends DashboardController
         if (User::where('is_active',1)->update(['notification'=>0])){
             return User::where('notification',1)->get()->count();
         }
+    }
+
+
+    public function profile($id)
+    {
+        $detail = User::find($id);
+        $this->data('title',$this->title($detail->name));
+        return view(
+            'Back.Pages.profile.profile',
+            $this->data,
+            compact('detail')
+        );
     }
 }

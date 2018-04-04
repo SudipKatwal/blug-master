@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 use App\Http\Interfaces\PostRepositoryInterface;
 use App\Image;
 use App\Post;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PostRepository extends Repository implements PostRepositoryInterface
@@ -83,11 +84,20 @@ class PostRepository extends Repository implements PostRepositoryInterface
 
     public function singlePost($id = null, $slug = null)
     {
-        return $this->model->where(
-            function ($query) use ($id){
-                $query->where(['is_active'=>1, 'id'=>$id]);
-            }
-        )->first();
+        if (Auth::user()->role->slug=='admin') {
+            return $this->model->where(
+                function ($query) use ($id) {
+                    $query->where(['is_active' => 1, 'id' => $id]);
+                }
+            )->first();
+        }
+        if (Auth::user()->role->slug!='admin'){
+            return $this->model->where(
+                function ($query) use ($id) {
+                    $query->where(['is_active' => 1, 'id' => $id,'user_id'=>Auth::id()]);
+                }
+            )->first();
+        }
     }
 
     public function singleSlugPost($slug)
@@ -139,6 +149,7 @@ class PostRepository extends Repository implements PostRepositoryInterface
             'category_id'     => array_get($data,'category'),
             'main_keywords'   => array_get($data,'main_keyword'),
             'lsi_keywords'    => array_get($data,'lsi_keywords'),
+            'is_resubmitted'  => 0,
         ];
     }
 }

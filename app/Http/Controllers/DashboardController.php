@@ -15,23 +15,25 @@ class DashboardController extends Controller
     {
         $this->data('userNotification',User::where(['notification'=>1])->get());
         $this->data('postNotification',Post::where(['notification'=>1])->get());
+        $this->data('writerNotification',Post::where(['is_resubmitted'=>1,'user_id'=>4])->get());
         $this->page = 'Back.Pages.';
     }
 
+
+
     public function dashboard()
     {
+        if (Auth::user()->role->slug=='admin'){
+            $this->data('allPost',Post::all()->count());
+            $this->data('allWriter',User::all()->count());
+        }else{
+            $this->data('allPost',Post::where(['user_id'=>Auth::id()])->get()->count());
+        }
         $this->data('title',$this->title('Dashboard'));
         return view(
             $this->page.'Dashboard.dashboard',
             $this->data
         );
     }
-    public function userdashboard()
-    {
-        $this->data('title',$this->title('Writer Dashboard'));
-        return view(
-            $this->page.'Dashboard.user-dashboard',
-            $this->data
-        );
-    }
+
 }

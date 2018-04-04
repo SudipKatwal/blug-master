@@ -29,10 +29,10 @@ Route::group(
     Route::get('setting','UserController@settingForm')->name('users.setting');
     Route::post('setting','UserController@settingAction');
     Route::post('setting/change-password','UserController@changePassword')->name('change.password');
-        Route::post('setting/change-profile-photo','UserController@changePhoto')->name('change.photo');
+    Route::post('setting/change-profile-photo','UserController@changePhoto')->name('change.photo');
+    Route::get('profile/{id}','UserController@profile')->name('profile');
 
-
-        Route::resource('pages','PageController');
+    Route::resource('pages','PageController');
     Route::post('pages/{id}/change-status','PageController@updateStatus')->name('pages.status');
 
     Route::resource('category','CategoryController');
