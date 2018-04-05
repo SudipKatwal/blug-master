@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Page;
 use Illuminate\Http\Request;
 
-class PageController extends Controller
+class PageController extends DashboardController
 {
 
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('admin');
     }
 

@@ -31,6 +31,9 @@ class CreateUsersTable extends Migration
             $table->double('balance')->default(0);
             $table->timestamp('balance_updated_at')->nullable();
 
+            $table->string('bio')->nullable();
+            $table->boolean('notification')->default(true);
+
             $table->boolean('is_active')->default(true);
 
             $table->boolean('email_verified')->default(false);

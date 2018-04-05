@@ -7,18 +7,22 @@
 
 
     # Login Information
+
     Email : {{$user->email}}
+
     Password  : {{$password}}
 
     This code will expire twenty four hours after this email was sent.
+
     Thanks,
 
     {{ config('app.name') }}
 
     @component('mail::subcopy')
-        ** Don't recognize this activity ? **<br>
+        ** Don't recognize this activity ? **
+
         BlugMaster requires verification whenever an email address is selected as new Virtual Travel Agent account. Your account cannot be used until you verify it.
-        If you didn't sent verification code. Ignore this mail someone may had made a mistake typing their own email address.<br><br>
+        If you didn't sent verification code. Ignore this mail someone may had made a mistake typing their own email address.
 
     @endcomponent
 @endcomponent

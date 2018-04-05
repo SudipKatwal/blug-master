@@ -6,15 +6,19 @@ use App\Category;
 use App\Http\Requests\PostRequest;
 use App\Http\Services\PostService;
 use App\Post;
+use App\Resubmission;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-class PostController extends Controller
+class PostController extends DashboardController
 {
     protected $postServices;
 
     public function __construct(PostService $postService)
     {
+        parent::__construct();
         $this->postServices = $postService;
     }
 
@@ -84,8 +88,11 @@ class PostController extends Controller
     {
 
         $detail = $this->postServices->singlePost($id);
+        if (count($detail)>0){
         $this->data('title',$this->title($detail->title));
-
+        }else{
+            return redirect()->route('posts.index')->with('error','Access denied.');
+        }
         return view(
             'Back.Pages.Posts.details',
             $this->data,
@@ -103,7 +110,11 @@ class PostController extends Controller
     {
 
         $detail = $this->postServices->singlePost($id);
-        $this->data('title',$detail->title.' edit');
+        if (count($detail)>0){
+            $this->data('title',$detail->title.' edit');
+        }else{
+            return redirect()->route('posts.index')->with('error','Access denied.');
+        }
         $this->data('categories',Category::all());
         return view(
             'Back.Pages.Posts.edit-post',
@@ -164,33 +175,32 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function tag()
-    {
-        $this->data('title',$this->title('Tags'));
-        return view(
-            'Back.Pages.Posts.tag',
-            $this->data
-        );
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function tagAdd(Request $request)
+    public function postResubmission(Request $request)
     {
-        //
+        if(DB::table('posts')->where('id',$request->post_id)->update(['is_resubmitted'=>1])){
+            if (Resubmission::create(['post_id'=>$request->post_id,'reasons'=>$request->reasons])){
+                return redirect()->route('posts.index')->with('success','Post has been resubmitted.');
+            }
+        }
     }
 
 
     public function postLogs()
     {
+        if (Auth::user()->role->slug=='admin'){
+            $this->data('approvedPost',Post::where(['is_approved'=>1])->get()->count());
+            $this->data('pendingPost',Post::where(['is_approved'=>0,'is_resubmitted'=>0])->get()->count());
+            $this->data('resubmittedPost',Post::where(['is_approved'=>0,'is_resubmitted'=>1])->get()->count());
+        }else{
+            $this->data('approvedPost',Post::where(['is_approved'=>1,'is_resubmitted'=>0,'user_id'=>Auth::id()])->get()->count());
+            $this->data('pendingPost',Post::where(['is_approved'=>0,'is_resubmitted'=>0,'user_id'=>Auth::id()])->get()->count());
+            $this->data('resubmittedPost',Post::where(['is_approved'=>0,'is_resubmitted'=>1,'user_id'=>Auth::id()])->get()->count());
+        }
         $this->data('title',$this->title('Post Logs'));
         if (Auth::user()->role->slug=='admin'){
             $posts = $this->postServices->posts();
@@ -207,11 +217,11 @@ class PostController extends Controller
             compact('posts')
         );
     }
-    public function userdash()
-    {
-        $this->data('title',$this->title('Writers Dash'));
-        return view('Back.Pages.Dashboard.user-dashboard',
-        $this->data);
+
+
+    public function notification(){
+        if (Post::where('is_active',1)->update(['notification'=>0])){
+            return Post::where('notification',1)->get()->count();
+        }
     }
-    
 }

@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class CategoryController extends DashboardController
 {
 
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('admin');
     }
 

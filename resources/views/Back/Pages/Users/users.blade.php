@@ -67,14 +67,14 @@
                                             <a class="btn btn-default btn-sm" href="">
                                                 Assign Post </a>
                                         </td>
-                                       {{--  <td>
-                                            <a class="btn btn-primary btn-sm" href="{{route('users.show',$user->id)}}">
+                                         <td>
+                                            <a class="btn btn-primary btn-sm" href="{{route('profile',$user->id)}}">
                                                 View Profile </a>
-                                        </td> --}}
-                                        <td>
-                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">Quick Info
-                                            </button>
                                         </td>
+                                        {{--<td>--}}
+                                            {{--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">Quick Info--}}
+                                            {{--</button>--}}
+                                        {{--</td>--}}
                                     </tr>
                                     </tbody>
                                 @empty

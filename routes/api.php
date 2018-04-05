@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('like', 'PublicPageController@like')->name('like');
+Route::get('notification/post','PostController@notification')->name('notification.post');

@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 
 use App\Http\Interfaces\PostRepositoryInterface;
+use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use Image;
 
@@ -26,6 +27,10 @@ class PostService extends Service
             $data['is_approved'] = 1;
         }else{
             $data['is_approved'] =0;
+        }
+
+        if(isset($request->tags)){
+            $data['tags'] = explode(',',$request->tags);
         }
 
         if ($request->hasFile('featured_image')){
