@@ -23,17 +23,16 @@
 
 				<div class="col-lg-4 col-md-6">
 						<div class="footer-section">
-						<h4 class="title"><b>CATAGORIES</b></h4>
+							<h4 class="title"><b>CATAGORIES</b></h4>
+							@if(count($categories)>0)
+					@forelse($categories as $key=>$category)
 						<ul>
-							<li><a href="#">BEAUTY</a></li>
-							<li><a href="#">HEALTH</a></li>
-							<li><a href="#">MUSIC</a></li>
+							<li><a href="#">{{$category->name}}</a></li>
+							
 						</ul>
-						<ul>
-							<li><a href="#">SPORT</a></li>
-							<li><a href="#">DESIGN</a></li>
-							<li><a href="#">TRAVEL</a></li>
-						</ul>
+						@empty
+					@endforelse
+				@endif
 					</div><!-- footer-section -->
 				</div><!-- col-lg-4 col-md-6 -->
 
