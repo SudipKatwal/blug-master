@@ -256,7 +256,10 @@
 
                 <div class="pull-left info">
                     <p>{{Auth::user()->name}}</p>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 34cc51242e713cf58ddb8015743ed68d6199805f
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div> --}}
