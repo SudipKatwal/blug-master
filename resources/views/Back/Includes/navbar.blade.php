@@ -256,11 +256,7 @@
 
                 <div class="pull-left info">
                     <p>{{Auth::user()->name}}</p>
-<<<<<<< HEAD
-                    {{--  <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
-=======
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
->>>>>>> af6de54a9ea526ee268a3957eaa26fa02d0caaf8
                 </div>
             </div> --}}
             <!-- sidebar menu: : style can be found in sidebar.less -->
