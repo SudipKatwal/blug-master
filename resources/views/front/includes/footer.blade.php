@@ -23,15 +23,25 @@
 
 				<div class="col-lg-4 col-md-6">
 						<div class="footer-section">
-						<h4 class="title"><b>CATAGORIES</b></h4>
+							<h4 class="title"><b>CATAGORIES</b></h4>
+							@if(count($categories)>0)
+					@forelse($categories as $key=>$category)
 						<ul>
+<<<<<<< HEAD
 							@if(count($categories)>0)
 								@forelse($categories as $key=>$category)
 									<li><a href="{{route('category.single',$category->slug)}}">{{$category->name}}</a></li>
 								@empty
 								@endforelse
 							@endif
+=======
+							<li><a href="#">{{$category->name}}</a></li>
+							
+>>>>>>> af6de54a9ea526ee268a3957eaa26fa02d0caaf8
 						</ul>
+						@empty
+					@endforelse
+				@endif
 					</div><!-- footer-section -->
 				</div><!-- col-lg-4 col-md-6 -->
 

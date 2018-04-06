@@ -23,6 +23,7 @@
 	<link href="{{asset('front/css/styles.css')}}" rel="stylesheet">
 
 	<link href="{{asset('front/css/responsive.css')}}" rel="stylesheet">
+
 	<!--FOR LOGIN-->
 	<link href="{{asset('front/css/login-style.css')}}" rel="stylesheet">
 
@@ -37,6 +38,7 @@
 		<div class="container-fluid position-relative no-side-padding">
 
 			<a href="#" class="logo"><img src="{{asset('front/images/logo.png')}}" alt="Logo Image"></a>
+		
 
 			<div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="fas fa-align-right"></i></div>
 
