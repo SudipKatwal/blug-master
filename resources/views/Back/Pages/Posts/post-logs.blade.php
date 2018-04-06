@@ -139,7 +139,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Assigned Posts</span>
-             <h2>34</h2>
+             <h2>{{count($postAssign)}}</h2>
             </div>
           </div>
         </div>

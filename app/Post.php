@@ -47,4 +47,9 @@ class Post extends Model
     {
         return $this->hasMany(Resubmission::class);
     }
+
+    public function payment()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

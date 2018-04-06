@@ -89,7 +89,7 @@
                                             <ul class="menu">
                                                 @forelse($writerRequestNotification as $key=>$post)
                                                     <li><!-- start message -->
-                                                        <a href="{{route('posts.show',$post->id)}}">
+                                                        <a href="{{route('posts.create',$post->id)}}">
                                                             <div class="pull-left">
                                                                 <img src="{{URL::to('Images/post-thumbnails/'.$post->thumbnail)}}" class="img-circle" alt="">
                                                             </div>
@@ -211,13 +211,13 @@
                 <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
+                            <img src="{{URL::to('Images/profile-thumbnails/'.Auth::user()->thumbnails)}}" class="user-image" alt="User Image">
                             <span class="hidden-xs">{{Auth::user()->name}}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                                <img src="{{URL::to('Images/profile-thumbnails/'.Auth::user()->thumbnails)}}" class="img-circle" alt="User Image">
 
                                 <p>
                                     {{Auth::user()->name}}
@@ -256,11 +256,8 @@
 
                 <div class="pull-left info">
                     <p>{{Auth::user()->name}}</p>
-<<<<<<< HEAD
-                    {{--  <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
-=======
+
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
->>>>>>> af6de54a9ea526ee268a3957eaa26fa02d0caaf8
                 </div>
             </div> --}}
             <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -317,7 +314,7 @@
                 </li>
 
                 <li>
-                    <a href=""><i class="fa fa-history"></i><span> Payment History</span></a>
+                    <a href="{{route('payment.history')}}"><i class="fa fa-history"></i><span> Payment History</span></a>
                 </li>
                 <li>
                     <a href="{{route('users.setting')}}"><i class="fa fa-wrench"></i><span> Settings</span></a>

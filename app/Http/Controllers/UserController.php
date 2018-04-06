@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\AssignPost;
 use App\Mail\EmailVerification;
+use App\Payment;
+use App\Post;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,7 @@ class UserController extends DashboardController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('admin')->except('settingForm','settingAction','changePassword','changePhoto');
+        $this->middleware('admin')->except('settingForm','settingAction','changePassword','changePhoto','paymentHistory');
     }
 
     /**
@@ -139,7 +141,7 @@ class UserController extends DashboardController
     {
         $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
         $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
-        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1,'user_id'=>Auth::id()])->get());
 
         $this->data('title',$this->title('Setting'));
         return view(
@@ -294,5 +296,25 @@ class UserController extends DashboardController
          if (AssignPost::create($data)){
              return redirect()->route('users.index','user=writer')->with('success','Post has been assigned.');
          }
+    }
+
+    public function paymentHistory()
+    {
+        $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1,'user_id'=>Auth::id()])->get());
+
+        $this->data('title',$this->title('Payment History'));
+        if (Auth::user()->role->slug=='admin') {
+            $posts = Payment::all();
+        }else{
+            $posts = Payment::where('user_id',Auth::id())->get();
+        }
+
+        return view(
+            'Back.Pages.Payment.payment-log',
+            $this->data,
+            compact('posts')
+        );
     }
 }

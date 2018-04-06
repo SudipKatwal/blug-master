@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Category;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -44,8 +45,13 @@ class RegisterController extends Controller
 
     public function register()
     {
+        $this->data('title',$this->title('Login'));
+        $categories = Category::all();
+
         return view(
-            'auth.register'
+            'auth.register',
+            $this->data,
+            compact('categories')
         );
     }
 

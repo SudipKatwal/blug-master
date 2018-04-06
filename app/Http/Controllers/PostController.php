@@ -6,6 +6,7 @@ use App\AssignPost;
 use App\Category;
 use App\Http\Requests\PostRequest;
 use App\Http\Services\PostService;
+use App\Payment;
 use App\Post;
 use App\Resubmission;
 use App\User;
@@ -32,7 +33,7 @@ class PostController extends DashboardController
     {
         $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
         $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
-        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1,'user_id'=>Auth::id()])->get());
 
         $this->data('title',$this->title('All Posts'));
         if(Auth::user()->role->slug=='admin'){
@@ -60,7 +61,7 @@ class PostController extends DashboardController
     {
         $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
         $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
-        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1,'user_id'=>Auth::id()])->get());
 
         $this->data('title',$this->title('New Post'));
         $this->data('categories',Category::all());
@@ -94,7 +95,7 @@ class PostController extends DashboardController
     {
         $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
         $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
-        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1,'user_id'=>Auth::id()])->get());
 
         $detail = $this->postServices->singlePost($id);
         if (count($detail)>0){
@@ -119,7 +120,7 @@ class PostController extends DashboardController
     {
         $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
         $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
-        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1,'user_id'=>Auth::id()])->get());
 
         $detail = $this->postServices->singlePost($id);
         if (count($detail)>0){
@@ -186,6 +187,7 @@ class PostController extends DashboardController
                     }
                 }
                 if(User::find($post->user_id)->update(['balance'=>$balance])){
+                    Payment::create(['user_id'=>$post->user_id,'post_id'=>$post->id,'balance'=>$balance,'transaction_type'=>'Debited']);
                     return redirect()->route('posts.index')->with('success', $message);
                 }
             } else {
@@ -215,7 +217,7 @@ class PostController extends DashboardController
     {
         $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
         $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
-        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1,'user_id'=>Auth::id()])->get());
 
         if (Auth::user()->role->slug=='admin'){
             $this->data('approvedPost',Post::where(['state'=>1])->get()->count());
@@ -268,7 +270,7 @@ class PostController extends DashboardController
     {
         $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
         $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
-        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1,'user_id'=>Auth::id()])->get());
         $this->data('title',$this->title('Assign Posts'));
         $posts = AssignPost::all();
         return view(

@@ -35,6 +35,7 @@ Route::group(
     Route::post('setting/change-password','UserController@changePassword')->name('change.password');
     Route::post('setting/change-profile-photo','UserController@changePhoto')->name('change.photo');
     Route::get('profile/{id}','UserController@profile')->name('profile');
+    Route::get('payment-history','UserController@paymentHistory')->name('payment.history');
 
     Route::get('assign-posts','PostController@assignPostView');
     Route::get('users/{id}/assign-post','UserController@assignPost')->name('assign.post');

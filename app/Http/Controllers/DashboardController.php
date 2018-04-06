@@ -29,7 +29,7 @@ class DashboardController extends Controller
     {
         $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
         $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
-        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1,'user_id'=>Auth::id()])->get());
 
         if (Auth::user()->role->slug=='admin'){
             $this->data('allPost',Post::all()->count());
