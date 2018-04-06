@@ -91,11 +91,27 @@
                         <!-- /.col-md-8 -->
                         <div class="col-md-4">
                             <div class="col-lg-12">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">Update Package</div>
-                                    <div class="panel-body">After updating package. The package will be change for public.</div>
-                                    <div class="panel-footer"><input class="btn btn-primary" type="submit" value="Update"></div>
-                                </div>
+
+                                @if($detail->state==1)
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Update Package</div>
+                                        <div class="panel-body">After updating package. The package will be change for public.</div>
+                                        <div class="panel-footer"><input class="btn btn-primary" type="submit" value="Update"></div>
+                                    </div>
+                                @elseif($detail->state==2)
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Resubmit Package</div>
+                                        <div class="panel-body">After resubmitting package. The package will be change for public.</div>
+                                        <div class="panel-footer"><input class="btn btn-primary" name="resubmit" type="submit" value="Resubmit"></div>
+                                    </div>
+                                @else
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Update Package</div>
+                                        <div class="panel-body">After updating package. The package will be change for public.</div>
+                                        <div class="panel-footer"><input class="btn btn-primary" type="submit" value="Update"></div>
+                                    </div>
+                                @endif
+
                                 <div class="panel panel-default">
                                     <div class="panel-heading">Category</div>
                                     <div class="panel-body">

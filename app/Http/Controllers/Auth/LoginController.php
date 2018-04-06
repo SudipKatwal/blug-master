@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -32,8 +33,12 @@ class LoginController extends Controller
 
     public function loginForm()
     {
+        $this->data('title',$this->title('Login'));
+        $categories = Category::all();
         return view(
-            'auth.login'
+            'auth.login',
+            $this->data,
+            compact('categories')
         );
     }
 

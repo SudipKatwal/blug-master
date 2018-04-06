@@ -50,12 +50,6 @@
                                                 {{ csrf_field() }}
 
                                                 <button id="delete" class="btn btn-danger btn-sm">Delete</button>
-                                                <script>
-                                                    $(document).on('click','#delete',function () {
-                                                        confirm('Do you want to delete this category ?');
-                                                    });
-                                                </script>
-
                                             </form>
                                         </div>
                                         <div class="col-lg-2 pull-right">
@@ -67,17 +61,19 @@
                                                 View Details </a>
                                         </div>
                                         
+                                        @if(Auth::user()->role->slug=='admin')
                                         <div class="col-lg-2 pull-right">
                                             <form method="post" action="{{route('approve.post',$post->id)}}">
                                                 <input type="hidden" name="id" value="{{$post->id}}">
                                                 {{csrf_field()}}
                                                 @if($post->is_approved==0)
                                                     <button name="enable" class="btn btn-primary btn-sm">Approve</button>
+                                            </form>
                                                 @else
                                                     <button name="disable" class="btn btn-success btn-sm">Approved</button>
                                                 @endif
-                                            </form>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -92,6 +88,12 @@
         </div>
     </section>
     <!-- /.content -->
+
+    <script>
+        $(document).on('click','#delete',function () {
+            confirm('Do you want to delete this category ?');
+        });
+    </script>
 </div>
 <!-- /.content-wrapper -->
 

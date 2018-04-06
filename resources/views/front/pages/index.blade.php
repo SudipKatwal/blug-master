@@ -29,7 +29,7 @@
 								
 
 								<ul class="post-footer">
-									<li><a href="#"><i class=" fa fa-eye"></i>138</a></li>
+									<li><a href="#"><i class=" fa fa-eye"></i>{{$post->view_count}}</a></li>
 									<li><a href="{{route('single',$post->slug)}}">Read More</a></li>
 									
 								</ul>

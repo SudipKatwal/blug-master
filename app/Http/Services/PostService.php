@@ -56,15 +56,24 @@ class PostService extends Service
     public function updatePost($request, $id)
     {
         $data = $request->all();
+//        print_r($data); die;
+        if ($request['resubmit']) {
+            $data['state'] = 3;
+            $data['is_resubmitted'] = 1;
+        }else{
+            $data['state'] = 0;
+            $data['is_resubmitted'] = 0;
+        }
 
         $data['slug'] = strtolower(preg_replace('/[^A-Za-z0-9-]+/','-',$request->slug));
 
         $data['words_count'] = str_word_count($data['description']);
 
-
+//print_r($data); die;
         if ($request->hasFile('featured_image')){
             $imagePath = public_path('Images/post-thumbnails/' . $request->old_image);
-            unlink($imagePath);
+            if (isset($request->old_image))
+                unlink($imagePath);
             $thumbnail = $this->saveThumbnails($request->file('featured_image'));
             $data['thumbnails'] = $thumbnail;
         }else{

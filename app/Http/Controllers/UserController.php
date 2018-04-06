@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AssignPost;
 use App\Mail\EmailVerification;
 use App\User;
 use Illuminate\Http\Request;
@@ -136,6 +137,10 @@ class UserController extends DashboardController
      */
     public function settingForm()
     {
+        $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
+
         $this->data('title',$this->title('Setting'));
         return view(
             'Back.Pages.setting.setting',
@@ -268,5 +273,26 @@ class UserController extends DashboardController
             $this->data,
             compact('detail')
         );
+    }
+
+    public function assignPost($id)
+    {
+        $this->data('title',$this->title('Assign Post'));
+
+        return view(
+            'Back.Pages.AssignPost.assign-post',
+            $this->data,
+            compact('id')
+        );
+
+    }
+
+    public function assignPostAction(Request $request)
+    {
+        $data = $request->all();
+        unset($data['_token']);
+         if (AssignPost::create($data)){
+             return redirect()->route('users.index','user=writer')->with('success','Post has been assigned.');
+         }
     }
 }

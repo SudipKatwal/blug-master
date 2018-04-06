@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Services\PostService;
 use App\Like;
+use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -41,6 +42,8 @@ class PublicPageController extends Controller
 
         $post = $this->postService->singleSlugPost($slug);
 
+        Post::where('slug',$slug)->update(['view_count'=>$post->view_count+1]);
+
         return view(
             'front.pages.single',
             $this->data,
@@ -58,5 +61,16 @@ class PublicPageController extends Controller
                 return Like::where(['post_id'=>$request->pid])->count();
             }
         }
+    }
+
+    public function singleCategory($slug)
+    {
+        $this->data('title',$this->title($slug));
+        $posts = $this->postService->posts(15,$slug);
+        return view(
+            'front.pages.category',
+            $this->data,
+            compact('posts')
+        );
     }
 }

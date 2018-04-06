@@ -35,17 +35,27 @@
 							<p class="para">{!! $post->body !!}</p>
 
 							<p class="para"></p>
+							<div class="row">
+									@forelse($post->images as $image)
+									<div class="col-md-6">
+										<img src="{{URL::to('Images/post-images/'.$image->name)}}" class="img img-responsive">
+									</div>
+									@empty
+									@endforelse
 
+							</div>
 							<ul class="tags">
-								<li><a href="#">{!! $post->tags !!}</a></li>
-								
+								@forelse($post->tags as $tag)
+								<li><a href="#">{!! $tag->name !!}</a></li>
+								@empty
+								@endforelse
 							</ul>
 						</div><!-- blog-post-inner -->
 
 						<div class="post-icons-area">
 							<ul class="post-icons">
 								
-									<li><a href="#">Post Vews <i class="fas fa-eye"></i> 138</a></li>
+									<li><a href="#">Post Vews <i class="fas fa-eye"></i>{{$post->view_count}}</a></li>
 							</ul>
 
 							
@@ -77,9 +87,7 @@
 
 						<div class="sidebar-area about-area">
 							<h4 class="title"><b>About Author</b></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-								ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-								Ut enim ad minim veniam</p>
+							<p>{{$post->user->bio}}</p>
 						</div>
 
 						<div class="sidebar-area subscribe-area">

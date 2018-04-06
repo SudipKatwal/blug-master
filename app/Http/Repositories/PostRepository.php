@@ -61,7 +61,11 @@ class PostRepository extends Repository implements PostRepositoryInterface
     public function posts($limit = null, $category = null)
     {
         if (isset($limit) && isset($category)){
-            return $this->model->whereHas(
+            return $this->model->where(
+                function ($query){
+                    $query->where(['is_active'=>1,'state'=>1]);
+                }
+            )->whereHas(
                 'category',
                 function ($query) use($category){
                     $query->where('slug',$category);
@@ -71,7 +75,7 @@ class PostRepository extends Repository implements PostRepositoryInterface
         if (isset($limit)){
             return $this->model->where(
                 function ($query){
-                    $query->where('is_active',1);
+                    $query->where(['is_active'=>1,'state'=>1]);
                 }
             )->latest()->limit($limit)->get();
         }
@@ -104,7 +108,7 @@ class PostRepository extends Repository implements PostRepositoryInterface
     {
             return $this->model->where(
                 function ($query) use ($slug){
-                    $query->where(['is_active'=>1, 'slug'=>$slug]);
+                    $query->where(['is_active'=>1,'state'=>1, 'slug'=>$slug]);
                 }
             )->first();
     }
@@ -149,7 +153,8 @@ class PostRepository extends Repository implements PostRepositoryInterface
             'category_id'     => array_get($data,'category'),
             'main_keywords'   => array_get($data,'main_keyword'),
             'lsi_keywords'    => array_get($data,'lsi_keywords'),
-            'is_resubmitted'  => 0,
+            'is_resubmitted'  => array_get($data,'is_resubmitted'),
+            'state'           => array_get($data,'state'),
         ];
     }
 }

@@ -2,10 +2,13 @@
  namespace App\Traits;
 
 
+ use Illuminate\Support\Facades\Auth;
+
  trait General
  {
      public $data = [];
 
+     public $user;
      public function data($key, $value)
      {
          if (empty($key)) throw new \Exception('Key is not set');
@@ -18,5 +21,10 @@
              $front = 'BlugMaster';
          }
          return $front.$separator.$back;
+     }
+
+     public function authUser()
+     {
+         return $this->user = Auth::id();
      }
  }

@@ -33,6 +33,8 @@ class CreatePostsTable extends Migration
             $table->boolean('is_approved')->default(false);
             $table->boolean('is_resubmitted')->default(false);
             $table->boolean('is_active')->default(true);
+
+            $table->integer('state')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

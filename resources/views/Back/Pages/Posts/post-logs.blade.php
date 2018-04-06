@@ -21,13 +21,13 @@
               <h3 class="box-title">Details of Post History</h3>
 
               <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 300px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search content by users name">
+                {{--<div class="input-group input-group-sm" style="width: 300px;">--}}
+                  {{--<input type="text" name="table_search" class="form-control pull-right" placeholder="Search content by users name">--}}
 
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
+                  {{--<div class="input-group-btn">--}}
+                    {{--<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>--}}
+                  {{--</div>--}}
+                {{--</div>--}}
               </div>
             </div>
             <!-- /.box-header -->
@@ -47,15 +47,23 @@
                       <td>{{$post->user->name}}</td>
                       <td>{{$post->created_at}}</td>
                       <td>
-                          <span class="label label-success">
-                              @if($post->is_approved==1)
+                              @if($post->state==0)
+                              <span class="label label-default">
+                                  Not Approved
+                              </span>
+                              @elseif($post->state==1)
+                              <span class="label label-success">
                                   Approved
-                              @elseif($post->is_resubmitted==1)
-                                  Resubmitted
-                              @else
-                                  Pending
+                              </span>
+                              @elseif($post->state==2)
+                              <span class="label label-primary">
+                                  Request for resubmission
+                              </span>
+                          @elseif($post->state==3)
+                              <span class="label label-warning">
+                                  Awaiting for approval
+                              </span>
                               @endif
-                          </span>
                       </td>
                       <td>
                           <ul>

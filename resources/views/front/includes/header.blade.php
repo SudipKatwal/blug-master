@@ -44,7 +44,7 @@
 				<li><a href="{{URL::to('/')}}">Home</a></li>
 				@if(count($categories)>0)
 					@forelse($categories as $key=>$category)
-						<li><a href="#">{{$category->name}}</a></li>
+						<li><a href="{{route('category.single',$category->slug)}}">{{$category->name}}</a></li>
 					@empty
 					@endforelse
 				@endif

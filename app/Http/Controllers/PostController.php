@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AssignPost;
 use App\Category;
 use App\Http\Requests\PostRequest;
 use App\Http\Services\PostService;
@@ -29,6 +30,9 @@ class PostController extends DashboardController
      */
     public function index()
     {
+        $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
 
         $this->data('title',$this->title('All Posts'));
         if(Auth::user()->role->slug=='admin'){
@@ -54,6 +58,10 @@ class PostController extends DashboardController
      */
     public function create()
     {
+        $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
+
         $this->data('title',$this->title('New Post'));
         $this->data('categories',Category::all());
 
@@ -72,9 +80,7 @@ class PostController extends DashboardController
     public function store(PostRequest $request)
     {
         if($this->postServices->addNewPost($request)){
-            if (Auth::user()->role->name=='admin'){
-                return redirect()->route('posts.index')->with('success','Post has been added.');
-            }
+            return redirect()->route('posts.index')->with('success','Post has been added.');
         }
     }
 
@@ -86,6 +92,9 @@ class PostController extends DashboardController
      */
     public function show($id)
     {
+        $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
 
         $detail = $this->postServices->singlePost($id);
         if (count($detail)>0){
@@ -108,6 +117,9 @@ class PostController extends DashboardController
      */
     public function edit($id)
     {
+        $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
 
         $detail = $this->postServices->singlePost($id);
         if (count($detail)>0){
@@ -160,18 +172,27 @@ class PostController extends DashboardController
     {
         if (isset($request['enable'])) {
             $data['is_approved'] = 1;
-            $message = "User was Enabled";
+            $data['state'] = 1;
+            $message = "Post has been approved.";
+            $post = Post::find($id);
+            if ($post::where('id',$id)->update($data)) {
+                $i = 500;
+                $balance = $post->user->balance+100;
+                while ($i>4000){
+                    if ($post->words_count>$i){
+                        $i = $i+500;
+                        if($post->words_count>$i)
+                            $balance = $balance+20;
+                    }
+                }
+                if(User::find($post->user_id)->update(['balance'=>$balance])){
+                    return redirect()->route('posts.index')->with('success', $message);
+                }
+            } else {
+                return redirect()->back()->with('success', $message);
+            }
         }
-        if (isset($request['disable'])) {
-            $data['is_approved'] = 0;
-            $message = "User was Disabled";
-        }
-        $post = Post::find($id);
-        if ($post::where('id',$id)->update($data)) {
-            return redirect()->route('posts.index')->with('success', $message);
-        } else {
-            return redirect()->back()->with('success', $message);
-        }
+
     }
 
     /**
@@ -182,7 +203,7 @@ class PostController extends DashboardController
      */
     public function postResubmission(Request $request)
     {
-        if(DB::table('posts')->where('id',$request->post_id)->update(['is_resubmitted'=>1])){
+        if(DB::table('posts')->where('id',$request->post_id)->update(['request_resubmission'=>1,'state'=>2])){
             if (Resubmission::create(['post_id'=>$request->post_id,'reasons'=>$request->reasons])){
                 return redirect()->route('posts.index')->with('success','Post has been resubmitted.');
             }
@@ -192,14 +213,18 @@ class PostController extends DashboardController
 
     public function postLogs()
     {
+        $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
+
         if (Auth::user()->role->slug=='admin'){
-            $this->data('approvedPost',Post::where(['is_approved'=>1])->get()->count());
-            $this->data('pendingPost',Post::where(['is_approved'=>0,'is_resubmitted'=>0])->get()->count());
-            $this->data('resubmittedPost',Post::where(['is_approved'=>0,'is_resubmitted'=>1])->get()->count());
+            $this->data('approvedPost',Post::where(['state'=>1])->get()->count());
+            $this->data('pendingPost',Post::where(['state'=>0,'is_resubmitted'=>0])->get()->count());
+            $this->data('resubmittedPost',Post::where(['state'=>2,'is_resubmitted'=>1])->get()->count());
         }else{
-            $this->data('approvedPost',Post::where(['is_approved'=>1,'is_resubmitted'=>0,'user_id'=>Auth::id()])->get()->count());
-            $this->data('pendingPost',Post::where(['is_approved'=>0,'is_resubmitted'=>0,'user_id'=>Auth::id()])->get()->count());
-            $this->data('resubmittedPost',Post::where(['is_approved'=>0,'is_resubmitted'=>1,'user_id'=>Auth::id()])->get()->count());
+            $this->data('approvedPost',Post::where(['state'=>1,'user_id'=>Auth::id()])->get()->count());
+            $this->data('pendingPost',Post::where(['state'=>0,'user_id'=>Auth::id()])->get()->count());
+            $this->data('resubmittedPost',Post::where(['state'=>2,'user_id'=>Auth::id()])->get()->count());
         }
         $this->data('title',$this->title('Post Logs'));
         if (Auth::user()->role->slug=='admin'){
@@ -220,8 +245,36 @@ class PostController extends DashboardController
 
 
     public function notification(){
-        if (Post::where('is_active',1)->update(['notification'=>0])){
+        if (Post::where('is_active',1)->update(['notification'=>0,'is_resubmitted'=>0])){
             return Post::where('notification',1)->get()->count();
         }
+    }
+
+    public function authNotification()
+    {
+        if (Post::where('is_active',1)->update(['is_approved'=>0,'request_resubmission'=>0])){
+            Post::where('is_approved',1)->get()->count();
+        }
+    }
+
+    public function assignNotification()
+    {
+        if (AssignPost::where('is_active',1)->update(['is_assigned'=>0])){
+            AssignPost::where('is_assigned',1)->get()->count();
+        }
+    }
+
+    public function assignPostView()
+    {
+        $this->data('writerNotification',Post::where(['is_approved'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('writerRequestNotification',Post::where(['request_resubmission'=>1,'user_id'=>Auth::id()])->get());
+        $this->data('postAssign',AssignPost::where(['is_assigned'=>1])->get());
+        $this->data('title',$this->title('Assign Posts'));
+        $posts = AssignPost::all();
+        return view(
+            'Back.Pages.AssignPost.all-assign',
+            $this->data,
+            compact('posts')
+        );
     }
 }

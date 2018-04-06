@@ -40,7 +40,9 @@
                                 <th>Email</th>
                                 <th>Status</th>
                                 <th>Phone</th>
-                                <th>Task</th>
+                                {{--@if($user->role->slug!='admin')--}}
+                                    <th>Task</th>
+                                {{--@endif--}}
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -63,18 +65,16 @@
                                             </form>
                                         </td>
                                         <td>{{$user->phone_no}}</td>
+                                        @if($user->role->slug!='admin')
                                         <td>
-                                            <a class="btn btn-default btn-sm" href="">
+                                            <a class="btn btn-default btn-sm" href="{{route('assign.post',$user->id)}}">
                                                 Assign Post </a>
                                         </td>
+                                        @endif
                                          <td>
                                             <a class="btn btn-primary btn-sm" href="{{route('profile',$user->id)}}">
                                                 View Profile </a>
                                         </td>
-                                        {{--<td>--}}
-                                            {{--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">Quick Info--}}
-                                            {{--</button>--}}
-                                        {{--</td>--}}
                                     </tr>
                                     </tbody>
                                 @empty
@@ -93,42 +93,5 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
-
-    <!-- last added modal body for user profile-->
-     <div class="modal modal-info fade" id="modal-info">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" align="center">Writers Quick Info</h4>
-              </div>
-              <div class="modal-body">
-               
-            <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
-
-                     <h3 class="profile-username text-center">Nina Mcintire</h3>
-
-                <h5 class=" text-center"><strong> Member Since</strong> Dec 2018</h5>
- 
-                 <p><strong>No of Posts</strong> 98687</p>
-                     <p><strong>Email</strong> sudip@gmail.com</p>
-                        <p><strong>Phone No.</strong> 986345387</p>
-                    </div>
-           
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline" align="center" data-dismiss="modal">Close</button>
-               
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-
-        
 
 @endsection

@@ -4,7 +4,7 @@
         <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <title>BlugMaster :: Login and Register</title>
+    <title>BlogMaster :: Login and Register</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
@@ -41,11 +41,15 @@
 
         <ul class="main-menu visible-on-click" id="main-menu">
             <li><a href="{{URL::to('/')}}">Home</a></li>
-            <li><a href="#">Categories1</a></li>
-            <li><a href="#">Categories2</a></li>
-            <li><a href="#">Categories3</a></li>
-            <li><a href="#">Categories4</a></li>
-            <li><a href="{{URL::to('login')}}">Login</a></li>
+            @if(count($categories)>0)
+                @forelse($categories as $key=>$category)
+                    <li><a href="{{route('category.single',$category->slug)}}">{{$category->name}}</a></li>
+                @empty
+                @endforelse
+            @endif
+            @guest
+                <li><a href="{{URL::to('login')}}">Login</a></li>
+            @endguest
         </ul><!-- main-menu -->
 
 
@@ -101,14 +105,12 @@
                 <div class="footer-section">
                     <h4 class="title"><b>CATAGORIES</b></h4>
                     <ul>
-                        <li><a href="#">BEAUTY</a></li>
-                        <li><a href="#">HEALTH</a></li>
-                        <li><a href="#">MUSIC</a></li>
-                    </ul>
-                    <ul>
-                        <li><a href="#">SPORT</a></li>
-                        <li><a href="#">DESIGN</a></li>
-                        <li><a href="#">TRAVEL</a></li>
+                        @if(count($categories)>0)
+                            @forelse($categories as $key=>$category)
+                                <li><a href="{{route('category.single',$category->slug)}}">{{$category->name}}</a></li>
+                            @empty
+                            @endforelse
+                        @endif
                     </ul>
                 </div><!-- footer-section -->
             </div><!-- col-lg-4 col-md-6 -->
